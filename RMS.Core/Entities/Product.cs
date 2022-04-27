@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class Product :BaseEntity
+    public class Product :BaseEntity
     {
         public string Name { get; set; }
         public decimal Amount { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class Receipt : BaseEntity
+    public class Receipt : BaseEntity
     {
         public int Barcode { get; set; }
         public int OrderId { get; set; }

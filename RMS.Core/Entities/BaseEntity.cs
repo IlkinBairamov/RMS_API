@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class BaseEntity
+    public class BaseEntity
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public bool isDeleted { get; set; } 
+        public bool IsDeleted { get; set; } 
     }
 }
