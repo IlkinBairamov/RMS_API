@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace RMS.Data.Configurations
 {
-    internal class FoodConfiguration : IEntityTypeConfiguration<Food>
+    class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
     {
-        public void Configure(EntityTypeBuilder<Food> builder)
+        public void Configure(EntityTypeBuilder<Reservation> builder)
         {
-            builder.Property(x => x.Image).IsRequired(true);
-            builder.Property(x=>x.Name).HasMaxLength(50).IsRequired(true);
-            builder.Property(x=>x.CategoryId).IsRequired(true);
+            builder.Property(x => x.TableId).IsRequired(true);
             builder.Property(x => x.CreatedAt).HasDefaultValue(DateTime.UtcNow.AddHours(4));
             builder.Property(x => x.UpdatedAt).HasDefaultValue(DateTime.UtcNow.AddHours(4));
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);

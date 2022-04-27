@@ -14,7 +14,7 @@ namespace RMS.Data.Configurations
         public void Configure(EntityTypeBuilder<Purchase> builder)
         {
             builder.Property(x => x.ProductId).IsRequired(true);
-            builder.Property(x => x.Depo).IsRequired(true);
+            builder.Property(x => x.DepoId).IsRequired(true);
             builder.Property(x => x.CreatedAt).HasDefaultValue(DateTime.UtcNow.AddHours(4));
             builder.Property(x => x.UpdatedAt).HasDefaultValue(DateTime.UtcNow.AddHours(4)).ValueGeneratedOnUpdate();
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
