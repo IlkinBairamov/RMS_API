@@ -10,11 +10,13 @@ namespace RMS.Core.Entities
     {
         public int Number { get; set; }
         public int AmountOfSeat { get; set; }
-        public int Deposite { get; set; }
+        public int? Deposite { get; set; }
         public bool HasDeposite { get; set; }
-        public bool? Status { get; set; }
+        public int StatusId { get; set; }
+        public TableStatus Status { get; set; }
         public int HallId { get; set; }
         public Hall Hall { get; set; }
         public ICollection<Order> Orders { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }
