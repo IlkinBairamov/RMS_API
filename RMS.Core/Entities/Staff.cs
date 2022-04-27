@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class Staff : BaseEntity
+    public class Staff : BaseEntity
     {
         public string FullName { get; set; }
         public int StaffTypeId { get; set; }

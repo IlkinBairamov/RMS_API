@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class Payment : BaseEntity
+    public class Payment : BaseEntity
     {
-        public int ReceiptID { get; set; }
+        public int ReceiptId { get; set; }
         public Receipt Receipt { get; set; }
         public int PaymentTypeId { get; set; }
         public PaymentType PaymentType { get; set; }

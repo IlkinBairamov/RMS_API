@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class Order : BaseEntity
+    public class Order : BaseEntity
     {
         public int TableId { get; set; }
         public Table Table { get; set; }

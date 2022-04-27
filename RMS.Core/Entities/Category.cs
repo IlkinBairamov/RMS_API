@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class Category : BaseEntity 
+    public class Category : BaseEntity 
     {
         public string Name { get; set; }
         public ICollection<Food> Foods { get; set; }

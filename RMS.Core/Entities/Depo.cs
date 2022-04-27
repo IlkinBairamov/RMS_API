@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class Depo : BaseEntity
+    public class Depo : BaseEntity
     {
         public string Name { get; set; }
         public decimal Dept { get; set; }

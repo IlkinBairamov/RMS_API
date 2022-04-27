@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class PaymentType : BaseEntity
+    public class PaymentType : BaseEntity
     {
         public string Name { get; set; }
         public ICollection<Payment> Payments { get; set; }

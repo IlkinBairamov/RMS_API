@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Entities
 {
-    class OrderType :BaseEntity
+    public class OrderType :BaseEntity
     {
         public int Name { get; set; }
         public ICollection<Order> Orders { get; set; }
