@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface IStaffRepository : IRepository<Staff>
+    public interface IStaffRepository : IRepository<Staff>
     {
     }
 }

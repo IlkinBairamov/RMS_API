@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface IPaymentTypeRepository : IRepository<PaymentType>
+    public interface IPaymentTypeRepository : IRepository<PaymentType>
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface IOrderTypeRepository : IRepository<OrderType>
+    public interface IOrderTypeRepository : IRepository<OrderType>
     {
     }
 }
