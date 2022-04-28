@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface IReservationRepository : IRepository<Reservation>
+    public interface IReservationRepository : IRepository<Reservation>
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface IDepoRepository : IRepository<Depo>
+    public interface IDepoRepository : IRepository<Depo>
     {
     }
 }

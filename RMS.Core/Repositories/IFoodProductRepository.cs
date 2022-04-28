@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface IFoodProductRepository : IRepository<FoodProduct>
+    public interface IFoodProductRepository : IRepository<FoodProduct>
     {
     }
 }

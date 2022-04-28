@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface ITableStatusRepository : IRepository<TableStatus>
+    public interface ITableStatusRepository : IRepository<TableStatus>
     {
     }
 }

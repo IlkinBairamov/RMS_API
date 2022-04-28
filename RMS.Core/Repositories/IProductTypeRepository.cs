@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface IProductTypeRepository : IRepository<ProductType>
+    public interface IProductTypeRepository : IRepository<ProductType>
     {
     }
 }
