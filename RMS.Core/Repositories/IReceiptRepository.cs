@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core.Repositories
 {
-    internal interface IReceiptRepository : IRepository<Receipt>
+    public interface IReceiptRepository : IRepository<Receipt>
     {
     }
 }
