@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RMS.Core
 {
-    internal interface IUnitOfWork
+    public interface IUnitOfWork
     {
         public ICategoryRepository CategoryRepository { get; set; }
         public IDepoRepository DepoRepository { get; set; }
