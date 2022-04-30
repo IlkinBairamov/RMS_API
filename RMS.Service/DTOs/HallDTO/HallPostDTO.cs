@@ -11,7 +11,7 @@ namespace RMS.Service.DTOs.HallDTO
     {
         public string Name { get; set; }
     }
-    class HallPostDTOValidator : AbstractValidator<HallPostDTO>
+    public class HallPostDTOValidator : AbstractValidator<HallPostDTO>
     {
         public HallPostDTOValidator()
         {
