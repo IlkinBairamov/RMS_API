@@ -50,7 +50,7 @@ namespace RMS.Data
         public IPaymentTypeRepository PaymentTypeRepository => _paymentTypeRepository = _paymentTypeRepository ?? new PaymentTypeRepository(_context);
         public IProductDepoRepository ProductDepoRepository => _productDepoRepository = _productDepoRepository ?? new ProductDepoRepository(_context);
         public IProductRepository ProductRepository => _productRepository = _productRepository ?? new ProductRepository(_context);
-        public IProductTypeRepository ProductTypeRepository => _productTypeRepository = ProductTypeRepository ?? new ProductTypeRepository(_context);
+        public IProductTypeRepository ProductTypeRepository => _productTypeRepository = _productTypeRepository ?? new ProductTypeRepository(_context);
         public IPurchaseRepository PurchaseRepository => _purchaseRepository = _purchaseRepository ?? new PurchaseRepository(_context);
         public IReceiptRepository ReceiptRepository => _receiptRepository = _receiptRepository ?? new ReceiptRepository(_context);
         public IReservationRepository ReservationRepository => _reservationRepository = _reservationRepository ?? new ReservationRepository(_context);
