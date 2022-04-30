@@ -9,26 +9,26 @@ namespace RMS.Core
 {
     public interface IUnitOfWork
     {
-        public ICategoryRepository CategoryRepository { get; set; }
-        public IDepoRepository DepoRepository { get; set; }
-        public IFoodOrderRepository FoodOrderRepository { get; set; }
-        public IFoodProductRepository FoodProductRepository { get; set; }
-        public IFoodRepository FoodRepository { get; set; }
-        public IHallRepository HallRepository { get; set; }
-        public IOrderRepository OrderRepository { get; set; }
-        public IOrderTypeRepository OrderTypeRepository { get; set; }
-        public IPaymentRepository PaymentRepository { get; set; }
-        public IPaymentTypeRepository PaymentTypeRepository { get; set; }
-        public IProductDepoRepository ProductDepoRepository { get; set; }
-        public IProductRepository ProductRepository { get; set; }
-        public IProductTypeRepository ProductTypeRepository { get; set; }
-        public IPurchaseRepository PurchaseRepository { get; set; }
-        public IReceiptRepository ReceiptRepository { get; set; }
-        public IReservationRepository ReservationRepository { get; set; }
-        public IStaffRepository StaffRepository { get; set; }
-        public IStaffTypeRepository StaffTypeRepository { get; set; }
-        public ITableRepository TableRepository { get; set; }
-        public ITableStatusRepository TableStatusRepository { get; set; }
+        public ICategoryRepository CategoryRepository { get; }
+        public IDepoRepository DepoRepository { get; }
+        public IFoodOrderRepository FoodOrderRepository { get; }
+        public IFoodProductRepository FoodProductRepository { get; }
+        public IFoodRepository FoodRepository { get; }
+        public IHallRepository HallRepository { get; }
+        public IOrderRepository OrderRepository { get; }
+        public IOrderTypeRepository OrderTypeRepository { get; }
+        public IPaymentRepository PaymentRepository { get; }
+        public IPaymentTypeRepository PaymentTypeRepository { get; }
+        public IProductDepoRepository ProductDepoRepository { get; }
+        public IProductRepository ProductRepository { get; }
+        public IProductTypeRepository ProductTypeRepository { get; }
+        public IPurchaseRepository PurchaseRepository { get; }
+        public IReceiptRepository ReceiptRepository { get; }
+        public IReservationRepository ReservationRepository { get; }
+        public IStaffRepository StaffRepository { get; }
+        public IStaffTypeRepository StaffTypeRepository { get; }
+        public ITableRepository TableRepository { get; }
+        public ITableStatusRepository TableStatusRepository { get; }
 
         Task CommitAsync();
     }
