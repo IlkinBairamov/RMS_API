@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RMS.Core;
 using RMS.Data;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.Profiles;
@@ -42,10 +43,13 @@ namespace RMS_API
             services.AddDbContext<AppDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             var mapConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
-            }).CreateMapper();
+            });
+            IMapper mapper = mapConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
