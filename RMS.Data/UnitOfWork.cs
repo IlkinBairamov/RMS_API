@@ -59,9 +59,9 @@ namespace RMS.Data
         public ITableRepository TableRepository => _tableRepository = _tableRepository ?? new TableRepository(_context);
         public ITableStatusRepository TableStatusRepository => _tablestatusRepository = _tablestatusRepository ?? new TableStatusRepository(_context);
 
-        public Task CommitAsync()
+        public async Task CommitAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
     }
 }

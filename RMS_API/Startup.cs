@@ -10,10 +10,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RMS.API.Extentions;
 using RMS.Core;
 using RMS.Data;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.Profiles;
+using RMS.Service.Services.Implementations;
+using RMS.Service.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +47,7 @@ namespace RMS_API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IHallService, HallService>();
             var mapConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -61,7 +65,7 @@ namespace RMS_API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RMS_API v1"));
             }
-
+            app.AddExceptionsHandler();
             app.UseHttpsRedirection();
 
             app.UseRouting();
