@@ -18,7 +18,7 @@ namespace RMS.Data.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> exp, params string[] includes)
+        public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> exp, params string[] includes)
         {
             var query = _context.Set<TEntity>().AsQueryable();
             if (includes != null)
@@ -31,7 +31,7 @@ namespace RMS.Data.Repositories
             return await query.Where(exp).ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllPagenatedAsync(Expression<Func<TEntity, bool>> exp, int pageIndex, int pageSize, params string[] includes)
+        public async Task<List<TEntity>> GetAllPagenatedAsync(Expression<Func<TEntity, bool>> exp, int pageIndex, int pageSize, params string[] includes)
         {
             var query = _context.Set<TEntity>().AsQueryable();
             if (includes != null)
@@ -73,6 +73,19 @@ namespace RMS.Data.Repositories
         public async Task InsertAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
+        }
+
+        public async Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> exp, params string[] includes)
+        {
+            var query = _context.Set<TEntity>().AsQueryable();
+            if (includes != null)
+            {
+                foreach (var item in includes)
+                {
+                    query = query.Include(item);
+                }
+            }
+            return await query.AnyAsync(exp);
         }
 
         public void Remove(TEntity entity)

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RMS.Service.DTOs
 {
-    class PagenatedListDTO<T>
+    public class PagenatedListDTO<T>
     {
-        public PagenatedListDTO(IEnumerable<T> items, int pageIndex, int totalCount, int pageSize)
+        public PagenatedListDTO(List<T> items, int pageIndex, int totalCount, int pageSize)
         {
             Items = items;
             PageIndex = pageIndex;
@@ -17,7 +17,7 @@ namespace RMS.Service.DTOs
             HasPrev = pageIndex > 1;
         }
 
-        public IEnumerable<T> Items { get; }
+        public List<T> Items { get; }
         public int PageIndex { get; }
         public int TotalPages { get; }
         public bool HasNext { get; }
