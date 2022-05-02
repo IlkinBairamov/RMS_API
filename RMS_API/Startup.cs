@@ -48,6 +48,7 @@ namespace RMS_API
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IHallService, HallService>();
+            services.AddScoped<ITableService, TableService>();
             var mapConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
