@@ -25,7 +25,7 @@ namespace RMS.Service.Services.Implementations
         }
         public async Task CreateAsync(TablePostDTO tableDto)
         {
-            if (await _unitOfWork.TableRepository.IsExistAsync(x => x.Number == tableDto.Number))
+            if (await _unitOfWork.TableRepository.IsExistAsync(x => x.Number == tableDto.Number ))
                 throw new AlreadyExistException($"{tableDto.Number} is already exist. Please change name!");
             if (!await _unitOfWork.HallRepository.IsExistAsync(x=>x.Id==tableDto.HallId))
                 throw new NotFoundException($"{tableDto.HallId} not Found. Please select other table!");
