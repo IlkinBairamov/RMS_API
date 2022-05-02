@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using RMS.Core.Entities;
+using RMS.Service.DTOs.FoodDTO;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.DTOs.ProductDTO;
 using RMS.Service.DTOs.ProductTypeDTO;
 using RMS.Service.DTOs.TableDTO;
+using RMS.Service.DTOs.TableStatusDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,8 @@ namespace RMS.Service.Profiles
             CreateMap<Hall, HallGetAllDTO>();
             CreateMap<HallPostDTO, Hall>();
 
-            CreateMap<Table, TableGetDTO>();
+            CreateMap<Table, TableGetDTO>().ForMember(x=>x.Status,y=>y.MapFrom(x=>x.Status.Status))
+                .ForMember(x=>x.HallName,y=>y.MapFrom(x=>x.Hall.Name));
             CreateMap<Table, TableGetAllDTO>();
             CreateMap<TablePostDTO, Table>();
 
@@ -29,10 +32,23 @@ namespace RMS.Service.Profiles
             CreateMap<Product, ProductGetAllDTO<Product>>();
             CreateMap<ProductPostDTO, Product>();
 
+
+            CreateMap<TableStatus, TableStatusGetDTO>();
+            CreateMap<TableStatus, TableStatusGetAllDTO<TableStatusGetDTO>>();
+            CreateMap<TableStatus, TableStatusGetAllDTO<Product>>();
+            CreateMap<TableStatusPostDTO, TableStatus>();
+
+            CreateMap<Food, FoodGetDTO>().ForMember(x=>x.Products,y=>y.MapFrom(x=>x.FoodProducts));
+            CreateMap<Food, FoodGetAllDTO<FoodGetDTO>>();
+            CreateMap<Food, FoodGetAllDTO<Food>>();
+            CreateMap<FoodPostDTO, Food>();
+            CreateMap<FoodEditDTO, Food>();
+            
             CreateMap<ProductType, ProductTypeGetDTO>();
             CreateMap<ProductType, ProductTypeGetAllDTO<ProductTypeGetDTO>>();
             CreateMap<ProductType, ProductTypeGetAllDTO<ProductType>>();
             CreateMap<ProductTypePostDTO, ProductType>();
+
         }
     }
 }

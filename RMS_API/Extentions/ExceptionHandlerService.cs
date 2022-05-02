@@ -28,6 +28,10 @@ namespace RMS.API.Extentions
                         {
                             code = 409;
                         }
+                        else if (contextFeature.Error is FileFormatException)
+                        {
+                            code = 400;
+                        }
 
                     }
                     context.Response.StatusCode = code;

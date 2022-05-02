@@ -79,7 +79,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<TEntity> GetByIdAsync<TEntity>(int id)
         {
-            Table table = await _unitOfWork.TableRepository.GetAsync(x => x.Id == id);
+            Table table = await _unitOfWork.TableRepository.GetAsync(x => x.Id == id && x.IsDeleted==false);
             if (table == null) throw new Exception("Hall doesn't exist in this Id");
 
             TEntity entity = _mapper.Map<TEntity>(table);

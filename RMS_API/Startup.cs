@@ -10,10 +10,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using RMS.API.Extentions;
 using RMS.Core;
 using RMS.Data;
 using RMS.Service.DTOs.HallDTO;
+using RMS.Service.HelperServices.Implementations;
+using RMS.Service.HelperServices.Interfaces;
 using RMS.Service.Profiles;
 using RMS.Service.Services.Implementations;
 using RMS.Service.Services.Interfaces;
@@ -38,7 +41,8 @@ namespace RMS_API
         {
 
             services.AddControllers()
-            .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<HallPostDTOValidator>());
+            .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<HallPostDTOValidator>())
+            .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RMS_API", Version = "v1" });
@@ -47,11 +51,14 @@ namespace RMS_API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IFileManager, FileManager>();
             services.AddScoped<IHallService, HallService>();
             services.AddScoped<ITableService, TableService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ITableStatusService, TableStatusService>();
+            services.AddScoped<IFoodService, FoodService>();
             services.AddScoped<IProductTypeService, ProductTypeService>();
+
             var mapConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -72,6 +79,7 @@ namespace RMS_API
             app.AddExceptionsHandler();
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseAuthorization();
