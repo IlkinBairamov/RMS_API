@@ -57,7 +57,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<TableStatusGetAllDTO<TEntity>> GetAllAsync<TEntity>()
         {
-            List<TableStatus> entities = await _unitOfWork.TableStatusRepository.GetAllAsync(x=>x.IsDeleted==false);
+            List<TableStatus> entities = await _unitOfWork.TableStatusRepository.GetAllAsync(x=>x.IsDeleted==false,"Tables.Hall");
             List<TEntity> tableStatuses = new List<TEntity>();
             foreach (var item in entities)
             {
@@ -74,7 +74,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<PagenatedListDTO<TableStatusGetDTO>> GetAllFilteredAsync(int page, int pageSize, string search = "")
         {
-            List<TableStatus> statuses = await _unitOfWork.TableStatusRepository.GetAllPagenatedAsync(x => x.IsDeleted == false, page, pageSize);
+            List<TableStatus> statuses = await _unitOfWork.TableStatusRepository.GetAllPagenatedAsync(x => x.IsDeleted == false, page, pageSize,"Tables.Hall");
 
             List<TableStatusGetDTO> statusListDto = new List<TableStatusGetDTO>();
             foreach (var item in statuses)

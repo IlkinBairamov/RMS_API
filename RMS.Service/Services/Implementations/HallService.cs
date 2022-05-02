@@ -61,8 +61,8 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<PagenatedListDTO<HallGetDTO>> GetAllFilteredAsync(int page, int pageSize,string search = "")
         {
-            List<Hall> halls = await _unitOfWork.HallRepository.GetAllPagenatedAsync(x=>x.IsDeleted==false,page, pageSize);
-            if (search!=null)
+            List<Hall> halls = await _unitOfWork.HallRepository.GetAllPagenatedAsync(x=>x.IsDeleted==false,page, pageSize, "Tables.Status");
+            if (search.Length==0)
             {
                 halls = await _unitOfWork.HallRepository.GetAllPagenatedAsync(x => x.IsDeleted == false && x.Name.Contains(search), page, pageSize);
             }

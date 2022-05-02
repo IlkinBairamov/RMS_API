@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using RMS.Service.DTOs.TableDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace RMS.Service.DTOs.HallDTO
     public class HallGetDTO
     {
         public string Name { get; set; }
+        public List<TableGetDTO> Tables { get; set; }
     }
 }
