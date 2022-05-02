@@ -3,6 +3,7 @@ using RMS.Core.Entities;
 using RMS.Service.DTOs.FoodDTO;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.DTOs.ProductDTO;
+using RMS.Service.DTOs.ProductTypeDTO;
 using RMS.Service.DTOs.TableDTO;
 using RMS.Service.DTOs.TableStatusDTO;
 using System;
@@ -31,6 +32,7 @@ namespace RMS.Service.Profiles
             CreateMap<Product, ProductGetAllDTO<Product>>();
             CreateMap<ProductPostDTO, Product>();
 
+
             CreateMap<TableStatus, TableStatusGetDTO>();
             CreateMap<TableStatus, TableStatusGetAllDTO<TableStatusGetDTO>>();
             CreateMap<TableStatus, TableStatusGetAllDTO<Product>>();
@@ -41,6 +43,12 @@ namespace RMS.Service.Profiles
             CreateMap<Food, FoodGetAllDTO<Food>>();
             CreateMap<FoodPostDTO, Food>();
             CreateMap<FoodEditDTO, Food>();
+            
+            CreateMap<ProductType, ProductTypeGetDTO>();
+            CreateMap<ProductType, ProductTypeGetAllDTO<ProductTypeGetDTO>>();
+            CreateMap<ProductType, ProductTypeGetAllDTO<ProductType>>();
+            CreateMap<ProductTypePostDTO, ProductType>();
+
         }
     }
 }
