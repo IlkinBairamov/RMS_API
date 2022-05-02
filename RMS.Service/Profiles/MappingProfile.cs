@@ -2,6 +2,7 @@
 using RMS.Core.Entities;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.DTOs.ProductDTO;
+using RMS.Service.DTOs.ProductTypeDTO;
 using RMS.Service.DTOs.TableDTO;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,11 @@ namespace RMS.Service.Profiles
             CreateMap<Product, ProductGetAllDTO<ProductGetDTO>>();
             CreateMap<Product, ProductGetAllDTO<Product>>();
             CreateMap<ProductPostDTO, Product>();
+
+            CreateMap<ProductType, ProductTypeGetDTO>();
+            CreateMap<ProductType, ProductTypeGetAllDTO<ProductTypeGetDTO>>();
+            CreateMap<ProductType, ProductTypeGetAllDTO<ProductType>>();
+            CreateMap<ProductTypePostDTO, ProductType>();
         }
     }
 }
