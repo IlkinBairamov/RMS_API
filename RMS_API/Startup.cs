@@ -51,6 +51,7 @@ namespace RMS_API
             services.AddScoped<ITableService, TableService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ITableStatusService, TableStatusService>();
+            services.AddScoped<IProductTypeService, ProductTypeService>();
             var mapConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
