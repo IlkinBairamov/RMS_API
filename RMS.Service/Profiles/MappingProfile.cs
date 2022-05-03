@@ -3,6 +3,7 @@ using RMS.Core.Entities;
 using RMS.Service.DTOs.CategoryDTO;
 using RMS.Service.DTOs.FoodDTO;
 using RMS.Service.DTOs.HallDTO;
+using RMS.Service.DTOs.OrderTypeDTO;
 using RMS.Service.DTOs.ProductDTO;
 using RMS.Service.DTOs.ProductTypeDTO;
 using RMS.Service.DTOs.TableDTO;
@@ -45,7 +46,7 @@ namespace RMS.Service.Profiles
             CreateMap<FoodPostDTO, Food>();
             CreateMap<FoodEditDTO, Food>();
 
-            CreateMap<Category, CategoryGetDTO>();/*.ForMember(x => x.Foods, y => y.MapFrom(x => x.));*/
+            CreateMap<Category, CategoryGetDTO>().ForMember(x => x.Foods, y => y.MapFrom(x => x.Foods));
             CreateMap<Category, CategoryGetAllDTO<CategoryGetDTO>>();
             CreateMap<Category, CategoryGetAllDTO<Category>>();
             CreateMap<CategoryPostDTO, Category>();
@@ -56,6 +57,9 @@ namespace RMS.Service.Profiles
             CreateMap<ProductType, ProductTypeGetAllDTO<ProductType>>();
             CreateMap<ProductTypePostDTO, ProductType>();
 
+            CreateMap<OrderType, OrderTypeGetDTO>();
+            CreateMap<OrderType, OrderTypeGetAllDTO<OrderTypeGetDTO>>();
+            CreateMap<OrderTypePostDTO, OrderType>();
         }
     }
 }
