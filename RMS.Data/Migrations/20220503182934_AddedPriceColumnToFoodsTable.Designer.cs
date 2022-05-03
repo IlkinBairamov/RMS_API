@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RMS.Data;
 
 namespace RMS.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220503182934_AddedPriceColumnToFoodsTable")]
+    partial class AddedPriceColumnToFoodsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 72, DateTimeKind.Utc).AddTicks(9340));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 343, DateTimeKind.Utc).AddTicks(230));
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -48,7 +50,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 86, DateTimeKind.Utc).AddTicks(9370));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 363, DateTimeKind.Utc).AddTicks(2217));
 
                     b.HasKey("Id");
 
@@ -65,7 +67,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 90, DateTimeKind.Utc).AddTicks(4153));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 366, DateTimeKind.Utc).AddTicks(7216));
 
                     b.Property<decimal>("Dept")
                         .ValueGeneratedOnAdd()
@@ -85,7 +87,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 90, DateTimeKind.Utc).AddTicks(4928));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 366, DateTimeKind.Utc).AddTicks(7926));
 
                     b.HasKey("Id");
 
@@ -105,7 +107,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 93, DateTimeKind.Utc).AddTicks(4819));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 369, DateTimeKind.Utc).AddTicks(1527));
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -127,7 +129,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 93, DateTimeKind.Utc).AddTicks(9043));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 370, DateTimeKind.Utc).AddTicks(1765));
 
                     b.HasKey("Id");
 
@@ -146,7 +148,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 96, DateTimeKind.Utc).AddTicks(392));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 373, DateTimeKind.Utc).AddTicks(5666));
 
                     b.Property<int>("FoodAmount")
                         .HasColumnType("int");
@@ -165,7 +167,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 96, DateTimeKind.Utc).AddTicks(1785));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 373, DateTimeKind.Utc).AddTicks(6657));
 
                     b.HasKey("Id");
 
@@ -186,7 +188,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 98, DateTimeKind.Utc).AddTicks(725));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 375, DateTimeKind.Utc).AddTicks(1752));
 
                     b.Property<int>("FoodId")
                         .HasColumnType("int");
@@ -202,7 +204,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 98, DateTimeKind.Utc).AddTicks(2054));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 375, DateTimeKind.Utc).AddTicks(3190));
 
                     b.HasKey("Id");
 
@@ -223,7 +225,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 100, DateTimeKind.Utc).AddTicks(9052));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 377, DateTimeKind.Utc).AddTicks(436));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -237,7 +239,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 101, DateTimeKind.Utc).AddTicks(227));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 377, DateTimeKind.Utc).AddTicks(1484));
 
                     b.HasKey("Id");
 
@@ -254,7 +256,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 103, DateTimeKind.Utc).AddTicks(1054));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 378, DateTimeKind.Utc).AddTicks(8563));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -270,13 +272,10 @@ namespace RMS.Data.Migrations
                     b.Property<int>("TableId")
                         .HasColumnType("int");
 
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 103, DateTimeKind.Utc).AddTicks(2356));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 378, DateTimeKind.Utc).AddTicks(9474));
 
                     b.HasKey("Id");
 
@@ -299,7 +298,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 104, DateTimeKind.Utc).AddTicks(5563));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 380, DateTimeKind.Utc).AddTicks(2927));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -312,7 +311,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 104, DateTimeKind.Utc).AddTicks(6449));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 380, DateTimeKind.Utc).AddTicks(3780));
 
                     b.HasKey("Id");
 
@@ -329,7 +328,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 105, DateTimeKind.Utc).AddTicks(9516));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 381, DateTimeKind.Utc).AddTicks(7997));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -345,7 +344,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 106, DateTimeKind.Utc).AddTicks(504));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 381, DateTimeKind.Utc).AddTicks(8890));
 
                     b.HasKey("Id");
 
@@ -396,7 +395,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 108, DateTimeKind.Utc).AddTicks(2155));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 384, DateTimeKind.Utc).AddTicks(4499));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -414,7 +413,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 108, DateTimeKind.Utc).AddTicks(2929));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 384, DateTimeKind.Utc).AddTicks(5445));
 
                     b.HasKey("Id");
 
@@ -433,7 +432,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 109, DateTimeKind.Utc).AddTicks(5727));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 387, DateTimeKind.Utc).AddTicks(6575));
 
                     b.Property<int>("DepoId")
                         .HasColumnType("int");
@@ -449,7 +448,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 109, DateTimeKind.Utc).AddTicks(6488));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 387, DateTimeKind.Utc).AddTicks(8331));
 
                     b.HasKey("Id");
 
@@ -470,7 +469,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 111, DateTimeKind.Utc).AddTicks(69));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 389, DateTimeKind.Utc).AddTicks(7492));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -484,7 +483,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 111, DateTimeKind.Utc).AddTicks(938));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 389, DateTimeKind.Utc).AddTicks(8580));
 
                     b.HasKey("Id");
 
@@ -501,7 +500,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 112, DateTimeKind.Utc).AddTicks(5342));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 391, DateTimeKind.Utc).AddTicks(8654));
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -520,7 +519,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 112, DateTimeKind.Utc).AddTicks(6280));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 391, DateTimeKind.Utc).AddTicks(9809));
 
                     b.HasKey("Id");
 
@@ -544,12 +543,12 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 114, DateTimeKind.Utc).AddTicks(5961));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 395, DateTimeKind.Utc).AddTicks(1779));
 
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 114, DateTimeKind.Utc).AddTicks(4354));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 394, DateTimeKind.Utc).AddTicks(9281));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -565,7 +564,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 114, DateTimeKind.Utc).AddTicks(6403));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 395, DateTimeKind.Utc).AddTicks(2404));
 
                     b.HasKey("Id");
 
@@ -584,7 +583,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 126, DateTimeKind.Utc).AddTicks(2176));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 408, DateTimeKind.Utc).AddTicks(1223));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -600,7 +599,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 126, DateTimeKind.Utc).AddTicks(3400));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 408, DateTimeKind.Utc).AddTicks(2311));
 
                     b.HasKey("Id");
 
@@ -619,7 +618,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 119, DateTimeKind.Utc).AddTicks(143));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 397, DateTimeKind.Utc).AddTicks(7950));
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -649,7 +648,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 119, DateTimeKind.Utc).AddTicks(1281));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 397, DateTimeKind.Utc).AddTicks(8965));
 
                     b.HasKey("Id");
 
@@ -668,7 +667,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 120, DateTimeKind.Utc).AddTicks(8818));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 399, DateTimeKind.Utc).AddTicks(3563));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -683,7 +682,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 120, DateTimeKind.Utc).AddTicks(9970));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 399, DateTimeKind.Utc).AddTicks(4418));
 
                     b.HasKey("Id");
 
@@ -703,7 +702,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 124, DateTimeKind.Utc).AddTicks(4816));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 406, DateTimeKind.Utc).AddTicks(1388));
 
                     b.Property<int?>("Deposite")
                         .HasColumnType("int");
@@ -731,7 +730,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 124, DateTimeKind.Utc).AddTicks(5524));
+                        .HasDefaultValue(new DateTime(2022, 5, 3, 22, 29, 33, 406, DateTimeKind.Utc).AddTicks(2433));
 
                     b.HasKey("Id");
 

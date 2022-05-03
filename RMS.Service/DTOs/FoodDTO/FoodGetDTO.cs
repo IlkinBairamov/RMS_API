@@ -12,6 +12,7 @@ namespace RMS.Service.DTOs.FoodDTO
     {
         public string Name { get; set; }
         public string Category { get; set; }
+        public int Price { get; set; }
         public List<ProductGetDTO> Products { get; set; }
         public string File { get; set; }
     }

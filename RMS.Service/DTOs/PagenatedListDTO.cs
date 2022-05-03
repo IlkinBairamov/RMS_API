@@ -21,6 +21,6 @@ namespace RMS.Service.DTOs
         public int PageIndex { get; }
         public int TotalPages { get; }
         public bool HasNext { get; }
-        public bool HasPrev { get; }
-    }
+        public bool HasPrev { get; } 
+    } 
 }

@@ -10,5 +10,6 @@ namespace RMS.Core.Repositories
 
     public interface IReservationRepository : IRepository<Reservation>
     {
+        Task<bool> IsReservedAsync(int tableId);
     }
 }

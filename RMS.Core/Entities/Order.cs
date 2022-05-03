@@ -15,5 +15,6 @@ namespace RMS.Core.Entities
         public Staff Staff { get; set; }
         public int OrderTypeId { get; set; }
         public OrderType OrderType { get; set; }
+        public double TotalPrice { get; set; }
     }
 }
