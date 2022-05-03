@@ -27,7 +27,7 @@ namespace RMS.Service.HelperServices.Implementations
             {
                 FileName = file.FileName,
                 ChangedFileName = newFileName,
-                Path = "https://localhost:44355/uploads/foods/" + newFileName,
+                Path = "https://localhost:44355/uploads/"+folder + newFileName,
             };
 
             using (FileStream stream = new FileStream(path, FileMode.Create))

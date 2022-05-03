@@ -75,7 +75,7 @@ namespace RMS.Service.Services.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<FoodGetAllDTO<TEntity>> GetAllAsync<TEntity>(int page, int pageSize)
+        public async Task<FoodGetAllDTO<TEntity>> GetAllAsync<TEntity>()
         {
             List<Food> food = await _unitOfWork.FoodRepository.GetAllAsync(x => x.IsDeleted == false);
             List<TEntity> foodGetAllDTO = new List<TEntity>();
@@ -117,7 +117,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<TEntity> GetByNameAsync<TEntity>(string name)
         {
-            Food food = await _unitOfWork.FoodRepository.GetAsync(x => x.Name == name);
+            Food food = await _unitOfWork.FoodRepository.GetAsync(x => x.Name == name, "FoodProducts.Products");
             if (food == null) throw new NotFoundException("Food doesn't exist in this name");
             TEntity entity = _mapper.Map<TEntity>(food);
             return entity;
@@ -125,7 +125,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<bool> IsExistByIdAsync(int id)
         {
-            return await _unitOfWork.FoodRepository.IsExistAsync(x => x.Id == id);
+            return await _unitOfWork.FoodRepository.IsExistAsync(x => x.Id == id && x.IsDeleted == false);
         }
     }
 }
