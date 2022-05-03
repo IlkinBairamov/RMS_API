@@ -57,6 +57,7 @@ namespace RMS_API
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ITableStatusService, TableStatusService>();
             services.AddScoped<IFoodService, FoodService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOrderTypeService, OrderTypeService>();
