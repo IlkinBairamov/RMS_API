@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RMS.Core.Entities;
+using RMS.Service.DTOs.CategoryDTO;
 using RMS.Service.DTOs.FoodDTO;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.DTOs.ProductDTO;
@@ -43,7 +44,13 @@ namespace RMS.Service.Profiles
             CreateMap<Food, FoodGetAllDTO<Food>>();
             CreateMap<FoodPostDTO, Food>();
             CreateMap<FoodEditDTO, Food>();
-            
+
+            CreateMap<Category, CategoryGetDTO>();/*.ForMember(x => x.Foods, y => y.MapFrom(x => x.));*/
+            CreateMap<Category, CategoryGetAllDTO<CategoryGetDTO>>();
+            CreateMap<Category, CategoryGetAllDTO<Category>>();
+            CreateMap<CategoryPostDTO, Category>();
+            CreateMap<CategoryEditDTO, Category>();
+
             CreateMap<ProductType, ProductTypeGetDTO>();
             CreateMap<ProductType, ProductTypeGetAllDTO<ProductTypeGetDTO>>();
             CreateMap<ProductType, ProductTypeGetAllDTO<ProductType>>();

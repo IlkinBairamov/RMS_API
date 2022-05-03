@@ -1,5 +1,5 @@
 ﻿using RMS.Service.DTOs;
-using RMS.Service.DTOs.FoodDTO;
+using RMS.Service.DTOs.CategoryDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace RMS.Service.Services.Interfaces
 {
-    public interface IFoodService
+    public interface ICategoryService
     {
-        Task<FoodCreateReturnDTO> CreateAsync(FoodPostDTO foodDTO);
+        Task<CategoryCreateReturnDTO> CreateAsync(CategoryPostDTO CategoryDTO);
         Task<TEntity> GetByIdAsync<TEntity>(int id);
         Task<TEntity> GetByNameAsync<TEntity>(string name);
-        Task<PagenatedListDTO<FoodGetDTO>> GetAllFilteredAsync(int page, int pageSize);
-        Task<FoodGetAllDTO<TEntity>> GetAllAsync<TEntity>();
-        Task EditAsync(int id, FoodEditDTO foodDTO);
+        Task<CategoryGetAllDTO<TEntity>> GetAllAsync<TEntity>();
+        Task EditAsync(int id, CategoryEditDTO CategoryDTO);
         Task Delete(int id);
         Task<bool> IsExistByIdAsync(int id);
     }

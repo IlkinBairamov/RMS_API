@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\foods\" />
+    <Folder Include="wwwroot\uploads\categories\" />
   </ItemGroup>
 
 </Project>

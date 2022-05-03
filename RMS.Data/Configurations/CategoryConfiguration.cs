@@ -13,6 +13,7 @@ namespace RMS.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.Property(x => x.Image).IsRequired(true);
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired(true);
             builder.Property(x => x.CreatedAt).HasDefaultValue(DateTime.UtcNow.AddHours(4));
             builder.Property(x => x.UpdatedAt).HasDefaultValue(DateTime.UtcNow.AddHours(4));
