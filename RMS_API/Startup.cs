@@ -59,6 +59,7 @@ namespace RMS_API
             services.AddScoped<IFoodService, FoodService>();
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IOrderTypeService, OrderTypeService>();
 
             var mapConfig = new MapperConfiguration(mc =>
             {
