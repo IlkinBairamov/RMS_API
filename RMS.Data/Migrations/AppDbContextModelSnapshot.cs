@@ -106,7 +106,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 93, DateTimeKind.Utc).AddTicks(4819));n
+                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 93, DateTimeKind.Utc).AddTicks(4819));
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -347,7 +347,7 @@ namespace RMS.Data.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 106, DateTimeKind.Utc).AddTicks(504));n
+                        .HasDefaultValue(new DateTime(2022, 5, 4, 0, 48, 56, 106, DateTimeKind.Utc).AddTicks(504));
 
                     b.HasKey("Id");
 
