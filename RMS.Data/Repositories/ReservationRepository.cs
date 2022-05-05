@@ -33,5 +33,35 @@ namespace RMS.Data.Repositories
             }
             return isReserved;
         }
+
+        public async Task<bool> HasReservedAsync(int tableId, DateTime time)
+        {
+            var reservations = await _context.Reservations.Where(x => x.TableId == tableId && x.IsDeleted == false).ToListAsync();
+            bool hasReserved = false;
+            
+            foreach (var item in reservations)
+            {
+                TimeSpan spanNext;
+                TimeSpan spanPrev;
+                double totalNext=0;
+                double totalPrev=0;
+                if (item.Time > time)
+                {
+                    spanNext = (item.Time - time);
+                    totalNext = (double)spanNext.TotalMilliseconds / 60 / 60 / 1000;
+                }
+                else
+                {
+                    spanPrev = (time - item.Time);
+                    totalPrev = (double)spanPrev.TotalMilliseconds / 60 / 60 / 1000;
+                }
+                
+                if (totalNext <= 1 || totalPrev <=1)
+                {
+                    hasReserved = true;
+                }
+            }
+            return hasReserved;
+        }
     }
 }
