@@ -66,7 +66,7 @@ namespace RMS.Service.Services.Implementations
             {
                 orderTypeGetAllDTO.Add(_mapper.Map<TEntity>(item));
             }
-            int count = await _unitOfWork.ProductRepository.GetTotalCountAsync(x => x.IsDeleted == false);
+            int count = await _unitOfWork.OrderTypeRepository.GetTotalCountAsync(x => x.IsDeleted == false);
             OrderTypeGetAllDTO<TEntity> orderTypeGetAll = new OrderTypeGetAllDTO<TEntity>
             {
                 OrderTypes = orderTypeGetAllDTO,
