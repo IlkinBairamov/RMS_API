@@ -7,6 +7,7 @@ using RMS.Service.DTOs.OrderDTO;
 using RMS.Service.DTOs.OrderTypeDTO;
 using RMS.Service.DTOs.ProductDTO;
 using RMS.Service.DTOs.ProductTypeDTO;
+using RMS.Service.DTOs.StaffTypeDTO;
 using RMS.Service.DTOs.TableDTO;
 using RMS.Service.DTOs.TableStatusDTO;
 using System;
@@ -66,6 +67,10 @@ namespace RMS.Service.Profiles
             CreateMap<Order, OrderGetAllDTO<OrderGetDTO>>();
             CreateMap<Order, OrderGetAllDTO<Order>>();
             CreateMap<OrderPostDTO, Order>();
+
+            CreateMap<StaffType, StaffTypeGetDTO>();
+            CreateMap<StaffType, StaffTypeGetAllDTO<StaffTypeGetDTO>>();
+            CreateMap<StaffTypePostDTO, StaffType>();
         }
     }
 }
