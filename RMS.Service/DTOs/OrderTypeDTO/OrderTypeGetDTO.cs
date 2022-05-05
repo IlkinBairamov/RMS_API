@@ -1,14 +1,14 @@
-﻿using System;
+﻿using RMS.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RMS.Core.Entities
+namespace RMS.Service.DTOs.OrderTypeDTO
 {
-    public class OrderType :BaseEntity
+    public class OrderTypeGetDTO
     {
         public string Name { get; set; }
-        public ICollection<Order> Orders { get; set; }
     }
 }

@@ -88,7 +88,7 @@ namespace RMS.Service.Services.Implementations
         public async Task<TEntity> GetByNameAsync<TEntity>(string name)
         {
             Hall hall = await _unitOfWork.HallRepository.GetAsync(x=>x.Name == name);
-            if (hall == null) throw new Exception("Hall doesn't exist in this Id");
+            if (hall == null) throw new Exception("Hall doesn't exist in this name");
 
             TEntity entity = _mapper.Map<TEntity>(hall);
             return entity;
