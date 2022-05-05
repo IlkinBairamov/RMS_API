@@ -13,17 +13,11 @@ namespace RMS.Service.HelperServices.Implementations
         {
             Random random = new Random();
             int randomLength = 1;
-            List<int> oldCodes = new List<int>();
-            for (int i = 1; i < codeLength; i++)
+            for (int i = 0; i < codeLength; i++)
             {
                 randomLength *= 10;
             }
             int Code = random.Next(randomLength/10, randomLength);
-            while (oldCodes.Contains(Code))
-            {
-                Code = random.Next(randomLength / 10, randomLength);
-            }
-            oldCodes.Add(Code);
             return Code;
         }
     }
