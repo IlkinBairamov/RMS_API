@@ -5,6 +5,7 @@ using RMS.Service.DTOs.FoodDTO;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.DTOs.OrderDTO;
 using RMS.Service.DTOs.OrderTypeDTO;
+
 using RMS.Service.DTOs.ProductDTO;
 using RMS.Service.DTOs.ProductTypeDTO;
 using RMS.Service.DTOs.ReceiptDTO;
@@ -65,10 +66,12 @@ namespace RMS.Service.Profiles
             CreateMap<OrderType, OrderTypeGetAllDTO<OrderTypeGetDTO>>();
             CreateMap<OrderTypePostDTO, OrderType>();
 
+
             CreateMap<Order, OrderGetDTO>();
             CreateMap<Order, OrderGetAllDTO<OrderGetDTO>>();
             CreateMap<Order, OrderGetAllDTO<Order>>();
             CreateMap<OrderPostDTO, Order>();
+
 
             CreateMap<StaffType, StaffTypeGetDTO>();
             CreateMap<StaffType, StaffTypeGetAllDTO<StaffTypeGetDTO>>();
@@ -83,6 +86,7 @@ namespace RMS.Service.Profiles
             CreateMap<Staff, StaffCreateReturnDTO>().ForMember(x => x.StaffType, y => y.MapFrom(x => x.StaffType.Name));
             CreateMap<Staff, StaffGetAllDTO<StaffGetDTO>>();
             CreateMap<StaffPostDTO, Staff>();
+
         }
     }
 }
