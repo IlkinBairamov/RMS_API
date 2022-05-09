@@ -13,7 +13,7 @@ namespace RMS.Service.Services.Interfaces
         Task CreateAsync(TablePostDTO hallDTO);
         Task<TEntity> GetByIdAsync<TEntity>(int id);
         Task<TEntity> GetByNumberAsync<TEntity>(int number);
-        Task<PagenatedListDTO<TableGetDTO>> GetAllFilteredAsync(int page, int pageSize);
+        Task<PagenatedListDTO<TableGetDTO>> GetAllFilteredAsync(int page, int pageSize,int hallId);
         Task EditAsync(int id, TablePostDTO hallDTO);
         Task Delete(int id);
         Task<bool> IsExistByIdAsync(int id);

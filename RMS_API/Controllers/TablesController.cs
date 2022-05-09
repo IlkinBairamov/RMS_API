@@ -23,9 +23,9 @@ namespace RMS.API.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int hallId)
         {
-            PagenatedListDTO<TableGetDTO> tables = await _tableStatusService.GetAllFilteredAsync(1, 10);
+            PagenatedListDTO<TableGetDTO> tables = await _tableStatusService.GetAllFilteredAsync(1, 10,hallId);
             return Ok(tables);
         }
         [HttpGet("{id}")]

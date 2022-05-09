@@ -62,9 +62,9 @@ namespace RMS.Service.Services.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<PagenatedListDTO<TableGetDTO>> GetAllFilteredAsync(int page, int pageSize)
+        public async Task<PagenatedListDTO<TableGetDTO>> GetAllFilteredAsync(int page, int pageSize,int hallId)
         {
-            List<Table> tables = await _unitOfWork.TableRepository.GetAllPagenatedAsync(x => x.IsDeleted == false, page, pageSize);
+            List<Table> tables = await _unitOfWork.TableRepository.GetAllPagenatedAsync(x => x.IsDeleted == false && x.HallId == hallId, page, pageSize);
 
             List<TableGetDTO> tableListDto = new List<TableGetDTO>();
             foreach (var item in tables)
