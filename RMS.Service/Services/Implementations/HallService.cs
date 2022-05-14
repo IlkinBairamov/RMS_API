@@ -59,6 +59,23 @@ namespace RMS.Service.Services.Implementations
             await _unitOfWork.CommitAsync();
         }
 
+        public async Task<HallGetAllDTO> GetAllAsync()
+        {
+            List<Hall> entities = await _unitOfWork.HallRepository.GetAllAsync(x=>x.IsDeleted==false,"Tables.Hall");
+            List<HallGetDTO> halls = new List<HallGetDTO>();
+            foreach (var item in entities)
+            {
+                halls.Add(_mapper.Map<HallGetDTO>(item));
+            }
+            int count = await _unitOfWork.HallRepository.GetTotalCountAsync(x => x.IsDeleted == false);
+            HallGetAllDTO hallsGetAll = new HallGetAllDTO
+            {
+                Halls = halls,
+                Count = count
+            };
+            return hallsGetAll;
+        }
+
         public async Task<PagenatedListDTO<HallGetDTO>> GetAllFilteredAsync(int page, int pageSize,string search = "")
         {
             List<Hall> halls = await _unitOfWork.HallRepository.GetAllPagenatedAsync(x=>x.IsDeleted==false,page, pageSize, "Tables.Status");

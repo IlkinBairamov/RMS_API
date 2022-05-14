@@ -29,6 +29,8 @@ namespace RMS_API
 {
     public class Startup
     {
+        private readonly IWebHostEnvironment _environment;
+        readonly string origins = "defaultOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -50,6 +52,15 @@ namespace RMS_API
             services.AddDbContext<AppDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name:origins,
+                    policy =>
+                    {
+                        policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                    });
+            });
+            services.AddResponseCaching();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IFileManager, FileManager>();
             services.AddScoped<IHallService, HallService>();
@@ -89,7 +100,7 @@ namespace RMS_API
 
             app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseCors(origins);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

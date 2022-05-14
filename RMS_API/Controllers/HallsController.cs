@@ -23,7 +23,7 @@ namespace RMS.API.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
-            PagenatedListDTO<HallGetDTO> halls = await _hallService.GetAllFilteredAsync(1,10);
+            HallGetAllDTO halls = await _hallService.GetAllAsync();
             return Ok(halls);
         }
         [HttpGet("{id}")]

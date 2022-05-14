@@ -14,6 +14,7 @@ namespace RMS.Service.Services.Interfaces
         Task<TEntity> GetByIdAsync<TEntity>(int id);
         Task<TEntity> GetByNameAsync<TEntity>(string name);
         Task<PagenatedListDTO<HallGetDTO>> GetAllFilteredAsync(int page,int pageSize, string search="");
+        Task<HallGetAllDTO> GetAllAsync();
         Task EditAsync(int id, HallPostDTO hallDTO);
         Task Delete(int id);
         Task<bool> IsExistByIdAsync(int id);
