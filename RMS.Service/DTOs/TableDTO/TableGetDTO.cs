@@ -9,6 +9,7 @@ namespace RMS.Service.DTOs.TableDTO
 {
     public class TableGetDTO
     {
+        public int Id { get; set; }
         public int Number { get; set; }
         public int AmountOfSeat { get; set; }
         public int? Deposite { get; set; }

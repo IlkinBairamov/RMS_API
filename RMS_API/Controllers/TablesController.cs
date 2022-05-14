@@ -15,42 +15,42 @@ namespace RMS.API.Controllers
     [ApiController]
     public class TablesController : ControllerBase
     {
-        private readonly ITableService _tableStatusService;
+        private readonly ITableService _tableService;
 
         public TablesController(ITableService tableService)
         {
-            _tableStatusService = tableService;
+            _tableService = tableService;
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAll(int hallId)
+        public async Task<IActionResult> GetAll(int hallId = 1)
         {
-            PagenatedListDTO<TableGetDTO> tables = await _tableStatusService.GetAllFilteredAsync(1, 10,hallId);
+            TableGetAllDTO tables = await _tableService.GetAllAsync(hallId);
             return Ok(tables);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            TableGetDTO hallDto = await _tableStatusService.GetByIdAsync<TableGetDTO>(id);
+            TableGetDTO hallDto = await _tableService.GetByIdAsync<TableGetDTO>(id);
             return Ok(hallDto);
         }
         [HttpPost("")]
         public async Task<IActionResult> Post(TablePostDTO hallDto)
         {
-            await _tableStatusService.CreateAsync(hallDto);
-            Table table = await _tableStatusService.GetByNumberAsync<Table>(hallDto.Number);
+            await _tableService.CreateAsync(hallDto);
+            Table table = await _tableService.GetByNumberAsync<Table>(hallDto.Number);
             return StatusCode(202, table);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _tableStatusService.Delete(id);
+            await _tableService.Delete(id);
             return NoContent();
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, TablePostDTO tableDto)
         {
-            await _tableStatusService.EditAsync(id, tableDto);
+            await _tableService.EditAsync(id, tableDto);
             return NoContent();
         }
     }
