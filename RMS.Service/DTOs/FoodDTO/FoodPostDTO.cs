@@ -14,6 +14,7 @@ namespace RMS.Service.DTOs.FoodDTO
         public string Name { get; set; }
         public int CategoryId { get; set; }
         public IFormFile File { get; set; }
+        public int Price { get; set; }
     }
     public class FoodPostDTOValidator : AbstractValidator<FoodPostDTO>
     {
@@ -22,6 +23,7 @@ namespace RMS.Service.DTOs.FoodDTO
             RuleFor(x => x.Name).MinimumLength(2).MaximumLength(50).NotNull();
             RuleFor(x => x.CategoryId).GreaterThanOrEqualTo(1).NotNull();
             RuleFor(x => x.File).NotNull();
+            RuleFor(x => x.Price).NotNull().GreaterThanOrEqualTo(0);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace RMS.Service.Services.Implementations
                 if (!foodDTO.File.ContentType.Contains("image"))
                     throw new FileFormatException("Upload Type must be image(png,jpg,jpeg)");
                 savedFileDTO = await _fileManager.Save(foodDTO.File,"foods");
-                food.Image = savedFileDTO.ChangedFileName;
+                food.Image = savedFileDTO.Path;
             }
             await _unitOfWork.FoodRepository.InsertAsync(food);
             await _unitOfWork.CommitAsync();
@@ -107,7 +107,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<TEntity> GetByIdAsync<TEntity>(int id)
         {
-            Food food = await _unitOfWork.FoodRepository.GetAsync(x => x.Id == id, "FoodProducts.Products");
+            Food food = await _unitOfWork.FoodRepository.GetAsync(x => x.Id == id, "FoodProducts.Product", "Category");
             if (food == null) throw new NotFoundException("Food doesn't exist in this id");
             TEntity entity = _mapper.Map<TEntity>(food);
             //FoodGetDTO foodDto = _mapper.Map<FoodGetDTO>(food);

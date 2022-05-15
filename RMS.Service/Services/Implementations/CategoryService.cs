@@ -78,7 +78,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<CategoryGetAllDTO<TEntity>> GetAllAsync<TEntity>()
         {
-            List<Category> category = await _unitOfWork.CategoryRepository.GetAllAsync(x => x.IsDeleted == false);
+            List<Category> category = await _unitOfWork.CategoryRepository.GetAllAsync(x => x.IsDeleted == false,"Foods");
             List<TEntity> categoryGetAllDTO = new List<TEntity>();
             foreach (var item in category)
             {
