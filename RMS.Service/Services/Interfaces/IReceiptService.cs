@@ -10,8 +10,9 @@ namespace RMS.Service.Services.Interfaces
 {
     public interface IReceiptService
     {
-        Task CreateAsync(ReceiptPostDTO receiptDTO);
+        Task<ReceiptGetDTO> CreateAsync(ReceiptPostDTO receiptDTO);
         Task<TEntity> GetByIdAsync<TEntity>(int id);
+        Task<TEntity> GetByOrderAsync<TEntity>(int orderId);
         Task<PagenatedListDTO<ReceiptGetDTO>> GetAllFilteredAsync(int page, int pageSize);
         Task<ReceiptGetAllDTO<TEntity>> GetAllAsync<TEntity>();
         Task Delete(int id);

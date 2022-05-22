@@ -71,7 +71,6 @@ namespace RMS_API
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IOrderTypeService, OrderTypeService>();
             services.AddScoped<IStaffTypeService, StaffTypeService>();
             services.AddScoped<IReceiptService, ReceiptService>();
             services.AddScoped<IRandomGenerator, RandomGenerator>();

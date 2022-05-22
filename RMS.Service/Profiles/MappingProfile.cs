@@ -65,15 +65,17 @@ namespace RMS.Service.Profiles
             CreateMap<ProductType, ProductTypeGetAllDTO<ProductType>>();
             CreateMap<ProductTypePostDTO, ProductType>();
 
-            CreateMap<OrderType, OrderTypeGetDTO>();
-            CreateMap<OrderType, OrderTypeGetAllDTO<OrderTypeGetDTO>>();
-            CreateMap<OrderTypePostDTO, OrderType>();
 
-
-            CreateMap<Order, OrderGetDTO>();
-            CreateMap<Order, OrderGetAllDTO<OrderGetDTO>>();
-            CreateMap<Order, OrderGetAllDTO<Order>>();
+            CreateMap<Order, OrderGetDTO>()
+                .ForMember(x => x.Foods, y => y.MapFrom(x => x.FoodOrders))
+                .ForMember(x => x.TableNumber, y => y.MapFrom(x => x.Table.Number))
+                .ForMember(x => x.StaffName, y => y.MapFrom(x => x.Staff.FullName));
+            CreateMap<Order, OrderGetAllDTO>();
             CreateMap<OrderPostDTO, Order>();
+            CreateMap<FoodOrder, OrderFoodGetDTO>()
+                .ForMember(x => x.Name, y => y.MapFrom(x => x.Food.Name))
+                .ForMember(x => x.Price, y => y.MapFrom(x => x.Food.Price))
+                .ForMember(x => x.Count, y => y.MapFrom(x => x.FoodAmount));
 
 
             CreateMap<StaffType, StaffTypeGetDTO>();

@@ -24,10 +24,14 @@ namespace RMS.Data.Repositories
             var reservation = _context.Reservations.Where(x => x.TableId == tableId && x.IsDeleted==false).OrderBy(x=>x.Time).FirstOrDefault();
             DateTime currentTime = DateTime.UtcNow.AddHours(4);
             bool isReserved = false;
+            if (reservation==null)
+            {
+                return isReserved;
+            }
             var span = (reservation.Time - currentTime);
             double total = (double)span.TotalMilliseconds / 60 / 60 / 1000;
 
-            if (total <= 1.1)
+            if (total <= 1.1 && total>=-1.1)
             {
                 isReserved = true;
             }

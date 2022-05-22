@@ -16,7 +16,6 @@ namespace RMS.Core
         public IFoodRepository FoodRepository { get; }
         public IHallRepository HallRepository { get; }
         public IOrderRepository OrderRepository { get; }
-        public IOrderTypeRepository OrderTypeRepository { get; }
         public IPaymentRepository PaymentRepository { get; }
         public IPaymentTypeRepository PaymentTypeRepository { get; }
         public IProductDepoRepository ProductDepoRepository { get; }

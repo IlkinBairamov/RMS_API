@@ -8,8 +8,6 @@ namespace RMS.Service.DTOs.OrderDTO
 {
     public class OrderEditDTO
     {
-        public int TableNumber { get; set; }
-        public List<OrderFoodGetDTO> Foods { get; set; }
-        public int OrderTypeId { get; set; }
+        public int FoodId { get; set; }
     }
 }

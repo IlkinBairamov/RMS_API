@@ -24,13 +24,17 @@ namespace RMS.Service.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(ReservationPostDTO reservationDTO)
+        public async Task<double> CreateAsync(ReservationPostDTO reservationDTO)
         {
             if (await _unitOfWork.ReservationRepository.HasReservedAsync(reservationDTO.TableId,reservationDTO.Time))
                 throw new AlreadyExistException($"Reservation is already exist. Please change name!");
             Reservation reservation = _mapper.Map<Reservation>(reservationDTO);
             await _unitOfWork.ReservationRepository.InsertAsync(reservation);
+            DateTime currentTime = DateTime.UtcNow.AddHours(4);
+            var span = (reservation.Time - currentTime);
+            double total = (double)span.TotalSeconds;
             await _unitOfWork.CommitAsync();
+            return total;
         }
 
         public async Task Delete(int id)

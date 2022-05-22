@@ -25,7 +25,7 @@ namespace RMS.Service.Services.Implementations
         }
         public async Task CreateAsync(OrderPostDTO orderDTO)
         {
-            Table table = await _unitOfWork.TableRepository.GetAsync(x=>x.Number == orderDTO.TableId, "Status");
+            Table table = await _unitOfWork.TableRepository.GetAsync(x=>x.Id == orderDTO.TableId, "Status");
             if (table.Status.Status == "Full")
             {
                 throw new AlreadyFullException($"{table.Number} is full. Please select other table!");
@@ -34,9 +34,10 @@ namespace RMS.Service.Services.Implementations
             {
                 throw new TableIsReservedException($"{orderDTO.TableId} is Reserved. Please select other table!");
             }
-            if (await _unitOfWork.OrderRepository.IsExistAsync(x => x.TableId == table.Id))
-                throw new NotFoundException($"{orderDTO.TableId} not Found. Please select other table!");
+            if (await _unitOfWork.OrderRepository.IsExistAsync(x => x.TableId == table.Id && x.IsDeleted == false))
+                throw new AlreadyExistException($"Order is already exist in {orderDTO.TableId} Table. Please select other table!");
             Order order = _mapper.Map<Order>(orderDTO);
+            table.StatusId = 5;
             await _unitOfWork.OrderRepository.InsertAsync(order);
             await _unitOfWork.CommitAsync();
         }
@@ -46,7 +47,16 @@ namespace RMS.Service.Services.Implementations
             Order order = await _unitOfWork.OrderRepository.GetAsync(x => x.Id == id && x.IsDeleted == false);
             if (order == null)
             {
-                throw new NotFoundException("table doesn't exist in this Id");
+                throw new NotFoundException("Order doesn't exist in this Id");
+            }
+            Table table = await _unitOfWork.TableRepository.GetAsync(x => x.Id == order.TableId && x.IsDeleted == false);
+            if (await _unitOfWork.ReservationRepository.IsExistAsync(x => x.TableId == table.Id && x.IsDeleted == false))
+            {
+                table.StatusId = 2;
+            }
+            else
+            {
+                table.StatusId = 3;
             }
             order.IsDeleted = true;
             await _unitOfWork.CommitAsync();
@@ -55,38 +65,51 @@ namespace RMS.Service.Services.Implementations
         public async Task EditAsync(int id, OrderEditDTO orderDTO)
         {
             Order order = await _unitOfWork.OrderRepository.GetAsync(x => x.Id == id && x.IsDeleted == false);
+            Food food = await _unitOfWork.FoodRepository.GetAsync(x=>x.Id == orderDTO.FoodId && x.IsDeleted == false);
             if (order == null)
             {
-                throw new Exception("Table doesn't exist in this Id");
+                throw new Exception("Order doesn't exist in this Id");
             }
-            _mapper.Map<OrderEditDTO, Order>(orderDTO, order);
-            foreach (var item in orderDTO.Foods)
+            if (await _unitOfWork.FoodOrderRepository.IsExistAsync(x=>x.OrderId == id && x.FoodId==orderDTO.FoodId && x.IsDeleted== false))
             {
-                order.TotalPrice += item.Price;
+                FoodOrder foodOrder = await _unitOfWork.FoodOrderRepository.GetAsync(x => x.OrderId == id && x.FoodId==orderDTO.FoodId && x.IsDeleted == false);
+                foodOrder.FoodAmount++;
+                order.TotalPrice += food.Price;
             }
+            else
+            {
+                FoodOrder foodOrder = new FoodOrder();
+                foodOrder.OrderId = id;
+                foodOrder.FoodId = orderDTO.FoodId;
+                foodOrder.FoodAmount = 1;
+                order.TotalPrice += food.Price;
+                await _unitOfWork.FoodOrderRepository.InsertAsync(foodOrder);
+            }
+            
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<OrderGetAllDTO<TEntity>> GetAllAsync<TEntity>()
+        public async Task<OrderGetAllDTO> GetAllAsync()
         {
-            List<Order> entities = await _unitOfWork.OrderRepository.GetAllAsync(x => x.IsDeleted == false, "FoodOrders.Food");
-            List<TEntity> orders = new List<TEntity>();
+            List<Order> entities = await _unitOfWork.OrderRepository.GetAllAsync(x => x.IsDeleted == false, "FoodOrders.Food", "Staff" , "Table");
+            
+            List<OrderGetDTO> orders = new List<OrderGetDTO>();
             foreach (var item in entities)
             {
-                orders.Add(_mapper.Map<TEntity>(item));
+                orders.Add(_mapper.Map<OrderGetDTO>(item));
             }
             int count = await _unitOfWork.OrderRepository.GetTotalCountAsync(x => x.IsDeleted == false);
-            OrderGetAllDTO<TEntity> productTypeGetAll = new OrderGetAllDTO<TEntity>
+            OrderGetAllDTO orderGetAll = new OrderGetAllDTO
             {
                 Orders = orders,
                 Count = count
             };
-            return productTypeGetAll;
+            return orderGetAll;
         }
 
         public async Task<PagenatedListDTO<OrderGetDTO>> GetAllFilteredAsync(int page, int pageSize)
         {
-            List<Order> orders = await _unitOfWork.OrderRepository.GetAllPagenatedAsync(x => x.IsDeleted == false, page, pageSize, "FoodOrders.Food");
+            List<Order> orders = await _unitOfWork.OrderRepository.GetAllPagenatedAsync(x => x.IsDeleted == false, page, pageSize, "FoodOrders.Food", "Staff", "Table");
             List<OrderGetDTO> hallsListDto = new List<OrderGetDTO>();
             foreach (var item in orders)
             {
@@ -100,15 +123,15 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<TEntity> GetByIdAsync<TEntity>(int id)
         {
-            Order order = await _unitOfWork.OrderRepository.GetAsync(x => x.Id == id);
+            Order order = await _unitOfWork.OrderRepository.GetAsync(x => x.Id == id && x.IsDeleted == false, "FoodOrders.Food");
             if (order == null) throw new NotFoundException("Order doesn't exist in this Id");
             TEntity entity = _mapper.Map<TEntity>(order);
             return entity;
         }
 
         public async Task<TEntity> GetByTableAsync<TEntity>(int id)
-        {
-            Order order = await _unitOfWork.OrderRepository.GetAsync(x => x.TableId == id);
+            {
+            Order order = await _unitOfWork.OrderRepository.GetAsync(x => x.TableId == id && x.IsDeleted==false, "FoodOrders.Food");
             if (order == null) throw new NotFoundException("Order doesn't exist in this Id");
             TEntity entity = _mapper.Map<TEntity>(order);
             return entity;

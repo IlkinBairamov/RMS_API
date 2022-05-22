@@ -16,5 +16,6 @@ namespace RMS.Service.DTOs.TableDTO
         public bool HasDeposite { get; set; }
         public string Status { get; set; }
         public string HallName { get; set; }
+        public int HallId { get; set; }
     }
 }

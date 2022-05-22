@@ -20,22 +20,24 @@ namespace RMS.API.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int pageIndex)
         {
-            PagenatedListDTO<OrderGetDTO> halls = await _orderService.GetAllFilteredAsync(1, 10);
+            PagenatedListDTO<OrderGetDTO> halls = await _orderService.GetAllFilteredAsync(pageIndex, 10);
             return Ok(halls);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("{tableId}")]
+        public async Task<IActionResult> Get(int tableId = 0)
         {
-            OrderGetDTO hallDto = await _orderService.GetByIdAsync<OrderGetDTO>(id);
-            return Ok(hallDto);
+            OrderGetDTO orderDto = new OrderGetDTO();
+            orderDto = await _orderService.GetByTableAsync<OrderGetDTO>(tableId);
+            return Ok(orderDto);
         }
         [HttpPost("")]
         public async Task<IActionResult> Post(OrderPostDTO orderDto)
         {
             await _orderService.CreateAsync(orderDto);
-            return StatusCode(202);
+            OrderGetDTO order = await _orderService.GetByTableAsync<OrderGetDTO>(orderDto.TableId);
+            return StatusCode(202,order);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

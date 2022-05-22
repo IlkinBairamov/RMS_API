@@ -25,7 +25,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task CreateAsync(StaffTypePostDTO staffTypeDTO)
         {
-            if (await _unitOfWork.OrderTypeRepository.IsExistAsync(x => x.Name == staffTypeDTO.Name))
+            if (await _unitOfWork.StaffTypeRepository.IsExistAsync(x => x.Name == staffTypeDTO.Name))
                 throw new AlreadyExistException($"{staffTypeDTO.Name} is already exist. Please change name!");
             StaffType staffType = new StaffType { Name = staffTypeDTO.Name };
             await _unitOfWork.StaffTypeRepository.InsertAsync(staffType);

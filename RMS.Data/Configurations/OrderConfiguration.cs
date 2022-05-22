@@ -15,7 +15,6 @@ namespace RMS.Data.Configurations
         {
             builder.Property(x => x.TableId).IsRequired(true);
             builder.Property(x => x.StaffId).IsRequired(true);
-            builder.Property(x => x.OrderTypeId).IsRequired(true);
             builder.Property(x => x.CreatedAt).HasDefaultValue(DateTime.UtcNow.AddHours(4));
             builder.Property(x => x.UpdatedAt).HasDefaultValue(DateTime.UtcNow.AddHours(4));
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);

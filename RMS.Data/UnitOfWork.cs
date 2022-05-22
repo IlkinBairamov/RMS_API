@@ -19,7 +19,6 @@ namespace RMS.Data
         private IFoodRepository _foodRepository;
         private IHallRepository _hallRepository;
         private IOrderRepository _orderRepository;
-        private IOrderTypeRepository _orderTypeRepository;
         private IPaymentRepository _paymentRepository;
         private IPaymentTypeRepository _paymentTypeRepository;
         private IProductDepoRepository _productDepoRepository;
@@ -45,7 +44,6 @@ namespace RMS.Data
         public IFoodRepository FoodRepository => _foodRepository = _foodRepository ?? new FoodRepository(_context);
         public IHallRepository HallRepository => _hallRepository = _hallRepository ?? new HallRepository(_context);
         public IOrderRepository OrderRepository => _orderRepository = _orderRepository ?? new OrderRepository(_context);
-        public IOrderTypeRepository OrderTypeRepository => _orderTypeRepository = _orderTypeRepository ?? new OrderTypeRepository(_context);
         public IPaymentRepository PaymentRepository => _paymentRepository = _paymentRepository ?? new PaymentRepository(_context);
         public IPaymentTypeRepository PaymentTypeRepository => _paymentTypeRepository = _paymentTypeRepository ?? new PaymentTypeRepository(_context);
         public IProductDepoRepository ProductDepoRepository => _productDepoRepository = _productDepoRepository ?? new ProductDepoRepository(_context);

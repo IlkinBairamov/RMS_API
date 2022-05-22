@@ -21,7 +21,6 @@ namespace RMS.Data
         public DbSet<FoodProduct> FoodProducts { get; set; }
         public DbSet<Hall> Halls { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderType> OrderTypes { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -44,7 +43,6 @@ namespace RMS.Data
             modelBuilder.ApplyConfiguration(new FoodProductConfiguration());
             modelBuilder.ApplyConfiguration(new HallConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
-            modelBuilder.ApplyConfiguration(new OrderTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductDepoConfiguration());

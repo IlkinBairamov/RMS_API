@@ -47,10 +47,16 @@ namespace RMS.API.Controllers
             await _tableService.Delete(id);
             return NoContent();
         }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Put(int id, TablePostDTO tableDto)
+        //{
+        //    await _tableService.EditAsync(id, tableDto);
+        //    return NoContent();
+        //}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, TablePostDTO tableDto)
+        public async Task<IActionResult> Put(int id, string tableStatus)
         {
-            await _tableService.EditAsync(id, tableDto);
+            await _tableService.ChangeStatusAsync(id, tableStatus);
             return NoContent();
         }
     }

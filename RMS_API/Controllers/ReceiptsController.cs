@@ -25,17 +25,17 @@ namespace RMS.API.Controllers
             PagenatedListDTO<ReceiptGetDTO> receipts = await _receiptService.GetAllFilteredAsync(1, 10);
             return Ok(receipts);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> Get(int orderId)
         {
-            ReceiptGetDTO receiptDto = await _receiptService.GetByIdAsync<ReceiptGetDTO>(id);
+            ReceiptGetDTO receiptDto = await _receiptService.GetByOrderAsync<ReceiptGetDTO>(orderId);
             return Ok(receiptDto);
         }
         [HttpPost("")]
-        public async Task<IActionResult> Post([FromForm] ReceiptPostDTO receiptDto)
+        public async Task<IActionResult> Post(ReceiptPostDTO receiptDto)
         {
-            await _receiptService.CreateAsync(receiptDto);
-            return StatusCode(202);
+            ReceiptGetDTO receipt = await _receiptService.CreateAsync(receiptDto);
+            return StatusCode(202,receipt);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

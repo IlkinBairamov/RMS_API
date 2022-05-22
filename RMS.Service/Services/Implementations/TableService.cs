@@ -61,6 +61,17 @@ namespace RMS.Service.Services.Implementations
             _mapper.Map<TablePostDTO, Table>(tableDto, table);
             await _unitOfWork.CommitAsync();
         }
+        public async Task ChangeStatusAsync(int id , string statusDto)
+        {
+            Table table = await _unitOfWork.TableRepository.GetAsync(x => x.Id == id);
+            if (table == null)
+            {
+                throw new Exception("Table doesn't exist in this Id");
+            }
+            TableStatus status = await _unitOfWork.TableStatusRepository.GetAsync(x=>x.Status==statusDto && x.IsDeleted==false);
+            table.StatusId = status.Id;
+            await _unitOfWork.CommitAsync();
+        }
 
         public async Task<TableGetAllDTO> GetAllAsync(int hallId)
         {

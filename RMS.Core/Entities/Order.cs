@@ -13,8 +13,6 @@ namespace RMS.Core.Entities
         public ICollection<FoodOrder> FoodOrders { get; set; }
         public int StaffId { get; set; }
         public Staff Staff { get; set; }
-        public int OrderTypeId { get; set; }
-        public OrderType OrderType { get; set; }
         public double TotalPrice { get; set; }
     }
 }

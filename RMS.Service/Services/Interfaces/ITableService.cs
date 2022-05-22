@@ -16,6 +16,7 @@ namespace RMS.Service.Services.Interfaces
         Task<PagenatedListDTO<TableGetDTO>> GetAllFilteredAsync(int page, int pageSize,int hallId);
         Task<TableGetAllDTO> GetAllAsync(int hallId);
         Task EditAsync(int id, TablePostDTO hallDTO);
+        Task ChangeStatusAsync(int id, string statusDto);
         Task Delete(int id);
         Task<bool> IsExistByIdAsync(int id);
     }

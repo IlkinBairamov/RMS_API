@@ -9,7 +9,6 @@ namespace RMS.Service.DTOs.OrderDTO
     public class OrderPostDTO
     {
         public int TableId { get; set; }
-        public int OrderTypeId { get; set; }
         public int StaffId { get; set; }
     }
 }

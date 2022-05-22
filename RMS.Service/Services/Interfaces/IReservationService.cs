@@ -10,7 +10,7 @@ namespace RMS.Service.Services.Interfaces
 {
     public interface IReservationService
     {
-        Task CreateAsync(ReservationPostDTO reservationDTO);
+        Task<double> CreateAsync(ReservationPostDTO reservationDTO);
         Task<TEntity> GetByIdAsync<TEntity>(int id);
         Task<PagenatedListDTO<ReservationGetDTO>> GetAllFilteredAsync(int page, int pageSize);
         Task<ReservationGetAllDTO<TEntity>> GetAllAsync<TEntity>();

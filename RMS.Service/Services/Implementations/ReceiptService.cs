@@ -27,13 +27,21 @@ namespace RMS.Service.Services.Implementations
             _randomGenerator = randomGenerator;
         }
 
-        public async Task CreateAsync(ReceiptPostDTO receiptDTO)
+        public async Task<ReceiptGetDTO> CreateAsync(ReceiptPostDTO receiptDTO)
         {
+            if (await _unitOfWork.ReceiptRepository.IsExistAsync(x=>x.OrderId==receiptDTO.OrderId && x.IsDeleted == false))
+            {
+                throw new AlreadyExistException("Receipt is Already Exist in this id!!!");
+            }
             Receipt receipt = new Receipt { OrderId = receiptDTO.OrderId };
+            Order order = await _unitOfWork.OrderRepository.GetAsync(x=>x.Id==receiptDTO.OrderId && x.IsDeleted==false, "FoodOrders.Food");
             receipt.Barcode = _randomGenerator.Generate(8);
-            receipt.TotalPrice = (decimal)receipt.Order.TotalPrice;
+            receipt.TotalPrice = (decimal)receiptDTO.TotalPrice;
+            receipt.Order = order;
             await _unitOfWork.ReceiptRepository.InsertAsync(receipt);
             await _unitOfWork.CommitAsync();
+            ReceiptGetDTO receiptGetDTO = _mapper.Map<ReceiptGetDTO>(receipt);
+            return receiptGetDTO;
         }
 
         public async Task Delete(int id)
@@ -78,10 +86,18 @@ namespace RMS.Service.Services.Implementations
         }
         public async Task<TEntity> GetByIdAsync<TEntity>(int id)
         {
-            Receipt staffType = await _unitOfWork.ReceiptRepository.GetAsync(x => x.Id == id && x.IsDeleted == false);
-            if (staffType == null) throw new Exception("Receipt doesn't exist in this Id");
+            Receipt receipt = await _unitOfWork.ReceiptRepository.GetAsync(x => x.Id == id && x.IsDeleted == false);
+            if (receipt == null) throw new NotFoundException("Receipt doesn't exist in this Id");
 
-            TEntity entity = _mapper.Map<TEntity>(staffType);
+            TEntity entity = _mapper.Map<TEntity>(receipt);
+            return entity;
+        }
+        public async Task<TEntity> GetByOrderAsync<TEntity>(int orderId)
+        {
+            Receipt receipt = await _unitOfWork.ReceiptRepository.GetAsync(x => x.OrderId == orderId && x.IsDeleted == false, "Order.FoodOrders.Food", "Order.Staff");
+            if (receipt == null) throw new NotFoundException("Receipt doesn't exist in this order");
+
+            TEntity entity = _mapper.Map<TEntity>(receipt);
             return entity;
         }
 

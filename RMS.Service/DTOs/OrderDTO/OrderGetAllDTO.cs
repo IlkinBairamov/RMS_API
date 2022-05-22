@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RMS.Service.DTOs.OrderDTO
 {
-    public class OrderGetAllDTO<TEntity>
+    public class OrderGetAllDTO
     {
-        public List<TEntity> Orders { get; set; }
+        public List<OrderGetDTO> Orders { get; set; }
         public int Count { get; set; }
     }
 }
