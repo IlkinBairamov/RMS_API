@@ -93,7 +93,7 @@ namespace RMS.Service.Profiles
 
             CreateMap<Reservation, ReservationGetDTO>();
             CreateMap<Reservation, ReservationGetAllDTO<ReservationGetDTO>>();
-            CreateMap<ReservationPostDTO, Reservation>();
+            CreateMap<ReservationPostDTO, Reservation>().ForMember(x => x.Time, y => y.MapFrom(x => x.Time.AddHours(4)));
 
         }
     }

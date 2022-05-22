@@ -42,7 +42,7 @@ namespace RMS.Data.Repositories
         {
             var reservations = await _context.Reservations.Where(x => x.TableId == tableId && x.IsDeleted == false).ToListAsync();
             bool hasReserved = false;
-            
+            time = time.AddHours(4);
             foreach (var item in reservations)
             {
                 TimeSpan spanNext;
@@ -60,7 +60,7 @@ namespace RMS.Data.Repositories
                     totalPrev = (double)spanPrev.TotalMilliseconds / 60 / 60 / 1000;
                 }
                 
-                if (totalNext <= 1 || totalPrev <=1)
+                if (totalNext <= 1 && totalPrev <=1)
                 {
                     hasReserved = true;
                 }

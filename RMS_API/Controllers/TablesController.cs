@@ -54,9 +54,9 @@ namespace RMS.API.Controllers
         //    return NoContent();
         //}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, string tableStatus)
+        public async Task<IActionResult> Put(int id, TableEditDTO tabledto)
         {
-            await _tableService.ChangeStatusAsync(id, tableStatus);
+            await _tableService.ChangeStatusAsync(id, tabledto.TableStatus);
             return NoContent();
         }
     }

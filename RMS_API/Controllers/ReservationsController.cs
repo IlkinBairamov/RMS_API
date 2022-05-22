@@ -32,8 +32,8 @@ namespace RMS.API.Controllers
         [HttpPost("")]
         public async Task<IActionResult> Post(ReservationPostDTO reservationDto)
         {
-            await _reservationService.CreateAsync(reservationDto);
-            return StatusCode(202);
+            double timeOut = await _reservationService.CreateAsync(reservationDto);
+            return StatusCode(202,timeOut);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
