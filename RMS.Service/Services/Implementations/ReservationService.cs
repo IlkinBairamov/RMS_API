@@ -107,5 +107,9 @@ namespace RMS.Service.Services.Implementations
         {
             return await _unitOfWork.ReservationRepository.IsExistAsync(x => x.Id == id && x.IsDeleted == false);
         }
+        public async Task<bool> IsExistAsync(int tableId,string clientName)
+        {
+            return await _unitOfWork.ReservationRepository.IsExistAsync(x => x.TableId == tableId && x.ClientName == clientName && x.IsDeleted == false);
+        }
     }
 }

@@ -29,6 +29,12 @@ namespace RMS.API.Controllers
             ReservationGetDTO reservationDto = await _reservationService.GetByIdAsync<ReservationGetDTO>(id);
             return Ok(reservationDto);
         }
+        [HttpGet("")]
+        public async Task<IActionResult> Get(int tableId,string clientName)
+        {
+            bool hasReserve= await _reservationService.IsExistAsync(tableId,clientName);
+            return Ok(hasReserve);
+        }
         [HttpPost("")]
         public async Task<IActionResult> Post(ReservationPostDTO reservationDto)
         {

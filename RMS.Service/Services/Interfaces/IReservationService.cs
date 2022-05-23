@@ -17,5 +17,6 @@ namespace RMS.Service.Services.Interfaces
         Task EditAsync(int id,ReservationPostDTO reservationDTO);
         Task Delete(int id);
         Task<bool> IsExistByIdAsync(int id);
+        Task<bool> IsExistAsync(int tableId,string clientName);
     }
 }
