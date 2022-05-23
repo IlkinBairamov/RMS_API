@@ -32,14 +32,32 @@ namespace RMS.Service.Services.Implementations
             }
             if (await _unitOfWork.ReservationRepository.IsReservedAsync(table.Id))
             {
-                throw new TableIsReservedException($"{orderDTO.TableId} is Reserved. Please select other table!");
+                if (await _unitOfWork.ReservationRepository.IsExistAsync(x => x.TableId == orderDTO.TableId && x.ClientName == orderDTO.ClientName && x.IsDeleted == false))
+                {
+                    if (await _unitOfWork.OrderRepository.IsExistAsync(x => x.TableId == table.Id && x.IsDeleted == false))
+                        throw new AlreadyExistException($"Order is already exist in {orderDTO.TableId} Table. Please select other table!");
+                    Order order = _mapper.Map<Order>(orderDTO);
+                    table.StatusId = 9;
+                    Reservation reservation = await _unitOfWork.ReservationRepository.GetAsync(x => x.TableId == table.Id && x.IsDeleted == false);
+                    reservation.IsDeleted = true;
+                    await _unitOfWork.OrderRepository.InsertAsync(order);
+                    await _unitOfWork.CommitAsync();
+                }
+                else
+                {
+                    throw new TableIsReservedException($"{orderDTO.TableId} is Reserved or Client Name Invalid.Please select other table");
+                }
             }
-            if (await _unitOfWork.OrderRepository.IsExistAsync(x => x.TableId == table.Id && x.IsDeleted == false))
-                throw new AlreadyExistException($"Order is already exist in {orderDTO.TableId} Table. Please select other table!");
-            Order order = _mapper.Map<Order>(orderDTO);
-            table.StatusId = 5;
-            await _unitOfWork.OrderRepository.InsertAsync(order);
-            await _unitOfWork.CommitAsync();
+            else
+            {
+                if (await _unitOfWork.OrderRepository.IsExistAsync(x => x.TableId == table.Id && x.IsDeleted == false))
+                    throw new AlreadyExistException($"Order is already exist in {orderDTO.TableId} Table. Please select other table!");
+                Order order = _mapper.Map<Order>(orderDTO);
+                table.StatusId = 9;
+                await _unitOfWork.OrderRepository.InsertAsync(order);
+                await _unitOfWork.CommitAsync();
+            }
+            
         }
 
         public async Task Delete(int id)
@@ -50,13 +68,14 @@ namespace RMS.Service.Services.Implementations
                 throw new NotFoundException("Order doesn't exist in this Id");
             }
             Table table = await _unitOfWork.TableRepository.GetAsync(x => x.Id == order.TableId && x.IsDeleted == false);
-            if (await _unitOfWork.ReservationRepository.IsExistAsync(x => x.TableId == table.Id && x.IsDeleted == false))
+            if (await _unitOfWork.ReservationRepository.IsReservedAsync(table.Id))
             {
-                table.StatusId = 2;
+                Reservation reservation = await _unitOfWork.ReservationRepository.GetAsync(x=>x.TableId == table.Id && x.IsDeleted == false);
+                reservation.IsDeleted = true;
             }
             else
             {
-                table.StatusId = 3;
+                table.StatusId = 10;
             }
             order.IsDeleted = true;
             await _unitOfWork.CommitAsync();

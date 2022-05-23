@@ -10,5 +10,6 @@ namespace RMS.Service.DTOs.OrderDTO
     {
         public int TableId { get; set; }
         public int StaffId { get; set; }
+        public string ClientName { get; set; } = "";
     }
 }
