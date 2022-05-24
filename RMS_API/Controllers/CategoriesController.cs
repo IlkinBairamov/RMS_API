@@ -34,7 +34,7 @@ namespace RMS.API.Controllers
             return Ok(categoryDto);
         }
         [HttpPost("")]
-        public async Task<IActionResult> Post([FromForm] CategoryPostDTO categoryDto)
+        public async Task<IActionResult> Post([FromForm]CategoryPostDTO categoryDto)
         {
             await _categoryService.CreateAsync(categoryDto);
             Category category = await _categoryService.GetByNameAsync<Category>(categoryDto.Name);

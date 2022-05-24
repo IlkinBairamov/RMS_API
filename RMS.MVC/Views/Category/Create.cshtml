@@ -1,5 +1,5 @@
-﻿@using RMS.MVC.ViewModels.Hall
-@model HallIndexItemVM
+﻿@using RMS.MVC.ViewModels.Category
+@model CategoryCreateVM
 @{
     ViewData["Title"] = "Create";
 }
@@ -9,18 +9,24 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="fs-17 font-weight-600 mb-0">Create Hall</h6>
+                        <h6 class="fs-17 font-weight-600 mb-0">Create Category</h6>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <form method="post">
-                    <div class="form-group" >
+                <form method="post" enctype="multipart/form-data">
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group">
                         <label asp-for="Name" class="font-weight-600">Name</label>
-                        <input  class="form-control"  placeholder="Name" asp-for="Name">
+                        <input class="form-control" placeholder="Name" asp-for="Name">
                         <span asp-validation-for="Name" class="text-danger">  </span>
                     </div>
-                    
+                    <div class="form-group">
+                        <label asp-for="File" class="font-weight-600">Photo</label>
+                        <input class="form-control" placeholder="Photo" asp-for="File" accept="image/*">
+                        <span asp-validation-for="File" class="text-danger">  </span>
+                    </div>
+
                     <button type="submit" class="btn btn-success">Submit</button>
                     <a asp-action="Index" class="btn btn-light">Cancel</a>
                 </form>
@@ -28,7 +34,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
-}
