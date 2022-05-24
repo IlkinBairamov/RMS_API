@@ -37,7 +37,7 @@ namespace RMS.API.Controllers
         {
             await _hallService.CreateAsync(hallDto);
             Hall hall = await _hallService.GetByNameAsync<Hall>(hallDto.Name);
-            return StatusCode(202, hall);
+            return StatusCode(201, hall);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

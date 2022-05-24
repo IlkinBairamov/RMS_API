@@ -38,7 +38,7 @@ namespace RMS.Service.Services.Implementations
             Hall hall = await _unitOfWork.HallRepository.GetAsync(x => x.Id == id);
             if (hall == null)
             {
-                throw new Exception("Hall doesn't exist in this Id");
+                throw new NotFoundException("Hall doesn't exist in this Id");
             }
             hall.IsDeleted = true;
             await _unitOfWork.CommitAsync();
