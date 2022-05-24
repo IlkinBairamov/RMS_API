@@ -37,7 +37,7 @@ namespace RMS.Service.Services.Implementations
                     if (await _unitOfWork.OrderRepository.IsExistAsync(x => x.TableId == table.Id && x.IsDeleted == false))
                         throw new AlreadyExistException($"Order is already exist in {orderDTO.TableId} Table. Please select other table!");
                     Order order = _mapper.Map<Order>(orderDTO);
-                    table.StatusId = 9;
+                    table.StatusId = 5;
                     Reservation reservation = await _unitOfWork.ReservationRepository.GetAsync(x => x.TableId == table.Id && x.IsDeleted == false);
                     reservation.IsDeleted = true;
                     await _unitOfWork.OrderRepository.InsertAsync(order);
@@ -53,7 +53,7 @@ namespace RMS.Service.Services.Implementations
                 if (await _unitOfWork.OrderRepository.IsExistAsync(x => x.TableId == table.Id && x.IsDeleted == false))
                     throw new AlreadyExistException($"Order is already exist in {orderDTO.TableId} Table. Please select other table!");
                 Order order = _mapper.Map<Order>(orderDTO);
-                table.StatusId = 9;
+                table.StatusId = 5;
                 await _unitOfWork.OrderRepository.InsertAsync(order);
                 await _unitOfWork.CommitAsync();
             }
@@ -75,7 +75,7 @@ namespace RMS.Service.Services.Implementations
             }
             else
             {
-                table.StatusId = 10;
+                table.StatusId = 3;
             }
             order.IsDeleted = true;
             await _unitOfWork.CommitAsync();

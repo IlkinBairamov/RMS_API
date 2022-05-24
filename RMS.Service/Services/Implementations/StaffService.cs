@@ -93,6 +93,13 @@ namespace RMS.Service.Services.Implementations
             TEntity entity = _mapper.Map<TEntity>(staff);
             return entity;
         }
+        public async Task<TEntity> GetByPinAsync<TEntity>(int pin)
+        {
+            Staff staff = await _unitOfWork.StaffRepository.GetAsync(x => x.Pin == pin && x.IsDeleted == false, "StaffType");
+            if (staff == null) throw new NotFoundException("Staff doesn't exist in this Pin");
+            TEntity entity = _mapper.Map<TEntity>(staff);
+            return entity;
+        }
 
         public async Task<bool> IsExistByIdAsync(int id)
         {

@@ -94,7 +94,7 @@ namespace RMS.Service.Services.Implementations
         }
         public async Task<TEntity> GetByOrderAsync<TEntity>(int orderId)
         {
-            Receipt receipt = await _unitOfWork.ReceiptRepository.GetAsync(x => x.OrderId == orderId && x.IsDeleted == false, "Order.FoodOrders.Food", "Order.Staff");
+            Receipt receipt = await _unitOfWork.ReceiptRepository.GetAsync(x => x.OrderId == orderId, "Order.FoodOrders.Food", "Order.Staff");
             if (receipt == null) throw new NotFoundException("Receipt doesn't exist in this order");
 
             TEntity entity = _mapper.Map<TEntity>(receipt);

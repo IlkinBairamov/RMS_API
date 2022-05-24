@@ -11,6 +11,7 @@ namespace RMS.Service.Services.Interfaces
     {
         Task<StaffCreateReturnDTO> CreateAsync(StaffPostDTO staffDTO);
         Task<TEntity> GetByIdAsync<TEntity>(int id);
+        Task<TEntity> GetByPinAsync<TEntity>(int pin);
         Task<TEntity> GetByNameAsync<TEntity>(string name); 
         Task<StaffGetAllDTO<TEntity>> GetAllAsync<TEntity>();
         Task EditAsync(int id, StaffPostDTO staffDTO);

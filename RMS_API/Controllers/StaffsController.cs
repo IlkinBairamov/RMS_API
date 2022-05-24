@@ -27,11 +27,10 @@ namespace RMS.API.Controllers
             StaffGetAllDTO<StaffGetDTO> staff = await _staffService.GetAllAsync<StaffGetDTO>();
             return Ok(staff);
         }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("{pin}")]
+        public async Task<IActionResult> Get(int pin)
         {
-            StaffGetDTO saffGetDTO = await _staffService.GetByIdAsync<StaffGetDTO>(id);
+            StaffGetDTO saffGetDTO = await _staffService.GetByPinAsync<StaffGetDTO>(pin);
             return Ok(saffGetDTO);
         }
 
