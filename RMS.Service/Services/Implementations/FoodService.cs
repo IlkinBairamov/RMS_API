@@ -94,7 +94,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<PagenatedListDTO<FoodGetDTO>> GetAllFilteredAsync(int page, int pageSize)
         {
-            List<Food> foods = await _unitOfWork.FoodRepository.GetAllPagenatedAsync(x => x.IsDeleted == false, page, pageSize);
+            List<Food> foods = await _unitOfWork.FoodRepository.GetAllPagenatedAsync(x => x.IsDeleted == false, page, pageSize,"Category");
             List<FoodGetDTO> foodListDTO = new List<FoodGetDTO>();
             foreach (var item in foods)
             {

@@ -1,0 +1,40 @@
+﻿@using RMS.MVC.ViewModels.Food
+@model FoodCreateVM
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="fs-17 font-weight-600 mb-0">Create Category</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group" >
+                        <label asp-for="Name" class="font-weight-600">Name</label>
+                        <input  class="form-control"  placeholder="Name" asp-for="Name">
+                        <span asp-validation-for="Name" class="text-danger">  </span>
+                    </div>
+                    <div class="form-group" >
+                        <label asp-for="Price" class="font-weight-600">Name</label>
+                        <input  class="form-control"  placeholder="Name" asp-for="Price">
+                        <span asp-validation-for="Price" class="text-danger">  </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="File" class="font-weight-600">Photo</label>
+                        <input class="form-control" placeholder="Photo" asp-for="File" accept="image/*">
+                        <span asp-validation-for="File" class="text-danger">  </span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a asp-action="Index" class="btn btn-light">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

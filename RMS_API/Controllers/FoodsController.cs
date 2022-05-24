@@ -23,8 +23,8 @@ namespace RMS.API.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
-            PagenatedListDTO<FoodGetDTO> tables = await _foodService.GetAllFilteredAsync(1, 10);
-            return Ok(tables);
+            PagenatedListDTO<FoodGetDTO> foods = await _foodService.GetAllFilteredAsync(1, 10);
+            return Ok(foods);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

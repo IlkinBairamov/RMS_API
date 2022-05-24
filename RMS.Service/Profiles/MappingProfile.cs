@@ -46,7 +46,7 @@ namespace RMS.Service.Profiles
             CreateMap<TableStatus, TableStatusGetAllDTO<Product>>();
             CreateMap<TableStatusPostDTO, TableStatus>();
 
-            CreateMap<Food, FoodGetDTO>().ForMember(x => x.Products, y => y.MapFrom(x => x.FoodProducts))
+            CreateMap<Food, FoodGetDTO>()
                 .ForMember(x => x.Category, y => y.MapFrom(x => x.Category.Name))
                 .ForMember(x => x.File, y => y.MapFrom(x => x.Image));
             CreateMap<Food, FoodGetAllDTO<FoodGetDTO>>();
