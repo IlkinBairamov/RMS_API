@@ -29,9 +29,8 @@ namespace RMS.Service.Services.Implementations
                 throw new AlreadyExistException($"{tableDto.Number} is already exist. Please change name!");
             if (!await _unitOfWork.HallRepository.IsExistAsync(x=>x.Id==tableDto.HallId))
                 throw new NotFoundException($"{tableDto.HallId} not Found. Please select other table!");
-            if (!await _unitOfWork.TableStatusRepository.IsExistAsync(x => x.Id == tableDto.StatusId))
-                throw new NotFoundException($"{tableDto.StatusId} not Found. Please select other table!");
             Table table = _mapper.Map<Table>(tableDto);
+            table.StatusId = 10;
             await _unitOfWork.TableRepository.InsertAsync(table);
             await _unitOfWork.CommitAsync();
         }
@@ -47,7 +46,7 @@ namespace RMS.Service.Services.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task EditAsync(int id, TablePostDTO tableDto)
+        public async Task EditAsync(int id, TableUpdateDTO tableDto)
         {
             Table table = await _unitOfWork.TableRepository.GetAsync(x => x.Id == id);
             if (table == null)
@@ -58,7 +57,7 @@ namespace RMS.Service.Services.Implementations
             {
                 throw new Exception("Table is Already Exist with this Name");
             }
-            _mapper.Map<TablePostDTO, Table>(tableDto, table);
+            _mapper.Map<TableUpdateDTO, Table>(tableDto, table);
             await _unitOfWork.CommitAsync();
         }
         public async Task ChangeStatusAsync(int id , string statusDto)
@@ -73,9 +72,17 @@ namespace RMS.Service.Services.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<TableGetAllDTO> GetAllAsync(int hallId)
+        public async Task<TableGetAllDTO> GetAllAsync(int hallId = 0 )
         {
-            List<Table> entities = await _unitOfWork.TableRepository.GetAllAsync(x => x.IsDeleted == false && x.HallId == hallId,"Status","Hall");
+            List<Table> entities;
+            if (hallId != 0 )
+            {
+                entities = await _unitOfWork.TableRepository.GetAllAsync(x => x.IsDeleted == false && x.HallId == hallId,"Status","Hall");
+            }
+            else
+            {
+                entities = await _unitOfWork.TableRepository.GetAllAsync(x => x.IsDeleted == false, "Status", "Hall");
+            }
             List<TableGetDTO> tables = new List<TableGetDTO>();
             foreach (var item in entities)
             {
