@@ -34,6 +34,7 @@ namespace RMS.Service.Profiles
                 .ForMember(x=>x.HallName,y=>y.MapFrom(x=>x.Hall.Name));
             CreateMap<Table, TableGetAllDTO>();
             CreateMap<TablePostDTO, Table>();
+            CreateMap<TableUpdateDTO, Table>().ReverseMap();
 
             CreateMap<Product, ProductGetDTO>();
             CreateMap<Product, ProductGetAllDTO<ProductGetDTO>>();
