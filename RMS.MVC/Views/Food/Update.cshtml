@@ -1,5 +1,5 @@
-﻿@using RMS.MVC.ViewModels.Food
-@model FoodIndexItemVM
+﻿@using RMS.Service.DTOs.FoodDTO
+@model FoodEditDTO
 @{
     ViewData["Title"] = "Create";
 }
@@ -21,8 +21,8 @@
                         <span asp-validation-for="Name" class="text-danger">  </span>
                     </div>
                     <div class="form-group" >
-                        <label asp-for="Price" class="font-weight-600">Name</label>
-                        <input  class="form-control"  placeholder="Name" asp-for="Price">
+                        <label asp-for="Price" class="font-weight-600">Price</label>
+                        <input  class="form-control"  placeholder="Price" asp-for="Price">
                         <span asp-validation-for="Price" class="text-danger">  </span>
                     </div>
                     <div class="form-group">
@@ -31,13 +31,12 @@
                         <span asp-validation-for="File" class="text-danger">  </span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Category" class="font-weight-600">Photo</label>
+                        <label asp-for="CategoryId" class="font-weight-600">Category</label>
                         <select class="form-control" name="CategoryId">
                             <option value="0">--Select Category-- </option>
-                            <option value="0">@Model.Category </option>
                             @foreach (var item in ViewBag.Categories)
                            {
-                               if (item == Model.Category)
+                               if (item.Name == Model.Name)
                                {
                                     <option value="@item.Id" selected>@item.Name</option>
 

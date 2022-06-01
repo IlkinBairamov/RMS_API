@@ -13,6 +13,8 @@ namespace RMS.Service.DTOs.FoodDTO
         public string Name { get; set; }
         public int CategoryId { get; set; }
         public IFormFile File { get; set; }
+        public int Price { get; set; }
+
     }
     public class FoodEditDTOValidator : AbstractValidator<FoodEditDTO>
     {

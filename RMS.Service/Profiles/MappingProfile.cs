@@ -53,7 +53,7 @@ namespace RMS.Service.Profiles
             CreateMap<Food, FoodGetAllDTO<FoodGetDTO>>();
             CreateMap<Food, FoodGetAllDTO<Food>>();
             CreateMap<FoodPostDTO, Food>();
-            CreateMap<FoodEditDTO, Food>();
+            CreateMap<FoodEditDTO, Food>().ReverseMap();
 
             CreateMap<Category, CategoryGetDTO>().ForMember(x => x.Foods, y => y.MapFrom(x => x.Foods));
             CreateMap<Category, CategoryGetAllDTO<CategoryGetDTO>>();

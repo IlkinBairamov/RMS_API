@@ -85,7 +85,7 @@ namespace RMS.MVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Hall}/{action=Index}/{id?}");
             });
         }
     }

@@ -3,6 +3,11 @@ using Newtonsoft.Json;
 using RMS.MVC.ViewModels;
 using RMS.MVC.ViewModels.Food;
 using RMS.MVC.ViewModels.Hall;
+using RMS.Service.DTOs;
+using RMS.Service.DTOs.CategoryDTO;
+using RMS.Service.DTOs.FoodDTO;
+using RMS.Service.Exceptions;
+using RMS.Service.Services.Interfaces;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -12,88 +17,74 @@ namespace RMS.MVC.Controllers
 {
     public class FoodController : Controller
     {
-        public async Task<IActionResult> Index()
-        {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://localhost:44355/api/foods");
-            var responseJsonStr = await response.Content.ReadAsStringAsync();
+        private readonly IFoodService _foodService;
+        private readonly ICategoryService _categoryService;
 
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                FoodIndexVM model = JsonConvert.DeserializeObject<FoodIndexVM>(responseJsonStr);
-                return View(model);
-            }
-            else
-            {
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseJsonStr);
-                return Ok(error);
-            }
+        public FoodController(IFoodService foodService, ICategoryService categoryService)
+        {
+            _foodService = foodService;
+            _categoryService = categoryService;
+        }
+
+        public async Task<IActionResult> Index(int pageIndex = 1,int count = 10)
+        {
+            PagenatedListDTO<FoodGetDTO> foods = await _foodService.GetAllFilteredAsync(pageIndex, count);
+            return View(foods);
         }
 
         public async Task<IActionResult> Create()
         {
+            CategoryGetAllDTO<CategoryGetDTO> categories = await _categoryService.GetAllAsync<CategoryGetDTO>();
+            ViewBag.Categories = categories.Categories;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(FoodCreateVM foodVM)
+        public async Task<IActionResult> Create(FoodPostDTO foodDto)
         {
-            var jsonStr = JsonConvert.SerializeObject(foodVM);
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync("https://localhost:44355/api/foods", new StringContent(jsonStr, Encoding.UTF8, "application/json"));
-            if (response.StatusCode == HttpStatusCode.Created)
+            CategoryGetAllDTO<CategoryGetDTO> categories = await _categoryService.GetAllAsync<CategoryGetDTO>();
+            ViewBag.Categories = categories.Categories;
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View();
             }
-            else
+            try
             {
-                string responseContentStr = await response.Content.ReadAsStringAsync();
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseContentStr);
+                await _foodService.CreateAsync(foodDto);
+            }
+            catch (AlreadyExistException ex)
+            {
+                ModelState.AddModelError("Name", ex.Message);
+                return View();
 
-                ModelState.AddModelError("", error.Message);
             }
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.DeleteAsync($"https://localhost:44355/api/foods/{id}");
-            if (response.StatusCode == HttpStatusCode.NoContent)
-            {
-                return Json(new { status = 200 });
-            }
-            return View();
+            await _foodService.Delete(id);
+            return Json(new { status = 200 });
         }
 
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Update(int id)
         {
-            if (id == null)
+            CategoryGetAllDTO<CategoryGetDTO> categories = await _categoryService.GetAllAsync<CategoryGetDTO>();
+            ViewBag.Categories = categories.Categories;
+            FoodEditDTO foodDto = await _foodService.GetByIdAsync<FoodEditDTO>(id);
+            return View(foodDto);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int id , FoodEditDTO foodDto) {
+            CategoryGetAllDTO<CategoryGetDTO> categories = await _categoryService.GetAllAsync<CategoryGetDTO>();
+            ViewBag.Categories = categories.Categories;
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return View();
             }
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"https://localhost:44355/api/foods/{id}");
-            HttpResponseMessage responseCategories = await client.GetAsync($"https://localhost:44355/api/categories");
-            var responseJsonStr = await response.Content.ReadAsStringAsync();
-            var responseCategoriesJsonStr = await responseCategories.Content.ReadAsStringAsync();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                FoodIndexItemVM model = JsonConvert.DeserializeObject<FoodIndexItemVM>(responseJsonStr);
-                HallIndexVM categories = JsonConvert.DeserializeObject<HallIndexVM>(responseCategoriesJsonStr);
-                ViewBag.Categories = categories.Halls;
-                return View(model);
-            }
-            else
-            {
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseJsonStr);
-                return Ok(error);
-            }
+            await _foodService.EditAsync(id, foodDto);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

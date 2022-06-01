@@ -66,17 +66,11 @@
                     <nav class="sidebar-nav">
                         <ul class="metismenu">
                             <li class="nav-label">Main Menu</li>
-                            <li class="mm-active">
-                                <a class="has-arrow material-ripple" href="#">
-                                    <i class="typcn typcn-home-outline mr-2"></i>
-                                    Dashboard
-                                </a>
-                                <ul class="nav-second-level">
-                                    <li class="mm-active"><a href="index-2.html">Default</a></li>
-                                    <li><a href="dashboard_two.html">Dashboard Two</a></li>
-                                </ul>
-                            </li>
+                            <li><a asp-controller="Dashboard" asp-action="Index"><i class="typcn typcn-home-outline mr-2"></i>Dashboard</a></li>
                             <li><a asp-controller="Hall" asp-action="Index"><i class="typcn typcn-messages mr-2"></i> Halls</a></li>
+                            <li><a asp-controller="Table" asp-action="Index"><i class="typcn typcn-messages mr-2"></i> Tables</a></li>
+                            <li><a asp-controller="Food" asp-action="Index"><i class="typcn typcn-messages mr-2"></i> Foods</a></li>
+                            <li><a asp-controller="Category" asp-action="Index"><i class="typcn typcn-messages mr-2"></i> Categories</a></li>
                         </ul>
                     </nav>
                 </div><!-- sidebar-body -->

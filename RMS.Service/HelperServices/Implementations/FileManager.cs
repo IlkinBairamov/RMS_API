@@ -21,7 +21,7 @@ namespace RMS.Service.HelperServices.Implementations
             string newFileName = file.FileName;
             newFileName = newFileName.Length >64 ? newFileName.Substring(newFileName.Length - 64, 64) : newFileName;
             newFileName = Guid.NewGuid().ToString() + newFileName;
-            string path = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/uploads/", folder, newFileName);
+            string path = Path.Combine("/Users/HP/Desktop/RMS_API/RMS_API" + "/wwwroot/uploads/", folder, newFileName);
 
             SavedFileDTO savedFile = new SavedFileDTO
             {
