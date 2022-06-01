@@ -59,7 +59,7 @@ namespace RMS.Service.Profiles
             CreateMap<Category, CategoryGetAllDTO<CategoryGetDTO>>();
             CreateMap<Category, CategoryGetAllDTO<Category>>();
             CreateMap<CategoryPostDTO, Category>();
-            CreateMap<CategoryEditDTO, Category>();
+            CreateMap<CategoryEditDTO, Category>().ReverseMap();
 
             CreateMap<ProductType, ProductTypeGetDTO>();
             CreateMap<ProductType, ProductTypeGetAllDTO<ProductTypeGetDTO>>();

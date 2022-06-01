@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using RMS.MVC.ViewModels;
 using RMS.MVC.ViewModels.Category;
+using RMS.Service.DTOs.CategoryDTO;
+using RMS.Service.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,22 +16,17 @@ namespace RMS.MVC.Controllers
 {
     public class CategoryController : Controller
     {
+        private readonly ICategoryService _categoryService;
+
+        public CategoryController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
+
         public async Task<IActionResult> Index()
         {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://localhost:44355/api/categories");
-            var responseJsonStr = await response.Content.ReadAsStringAsync();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                CategoryIndexVM model = JsonConvert.DeserializeObject<CategoryIndexVM>(responseJsonStr);
-                return View(model);
-            }
-            else
-            {
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseJsonStr);
-                return Ok(error);
-            }
+            CategoryGetAllDTO<CategoryGetDTO> tables = await _categoryService.GetAllAsync<CategoryGetDTO>();
+            return View(tables);
         }
 
         public IActionResult Create()
@@ -39,27 +36,13 @@ namespace RMS.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CategoryCreateVM categoryVM)
+        public async Task<IActionResult> Create(CategoryPostDTO categoryDto)
         {
              if (!ModelState.IsValid)
             {
                 return View();
             }
-            var jsonStr = JsonConvert.SerializeObject(categoryVM);
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync("https://localhost:44355/api/categories", new StringContent(jsonStr, Encoding.UTF8, "application/json"));
-            if (response.StatusCode == HttpStatusCode.Created)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                string responseContentStr = await response.Content.ReadAsStringAsync();
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseContentStr);
-
-                ModelState.AddModelError("File", error.Message);
-                return View();
-            }
+            await _categoryService.CreateAsync(categoryDto);
             return View();
         }
 
@@ -75,53 +58,25 @@ namespace RMS.MVC.Controllers
             {
                 return Json(new { status = 200 });
             }
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Update(int id)
         {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"https://localhost:44355/api/categories/{id}");
-            var responseJsonStr = await response.Content.ReadAsStringAsync();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                CategoryIndexItemVM model = JsonConvert.DeserializeObject<CategoryIndexItemVM>(responseJsonStr);
-                return View(model);
-            }
-            else
-            {
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseJsonStr);
-                return Ok(error);
-            }
+            CategoryEditDTO categoryDto = await _categoryService.GetByIdAsync<CategoryEditDTO>(id);
+            return View(categoryDto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, CategoryCreateVM categoryVM)
+        public async Task<IActionResult> Update(int id, CategoryEditDTO categoryDto)
         {
             if (id == null)
             {
                 return BadRequest();
             }
-            var jsonStr = JsonConvert.SerializeObject(categoryVM);
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PutAsync($"https://localhost:44355/api/categories/{id}", new StringContent(jsonStr, Encoding.UTF8, "application/json"));
-            if (response.StatusCode == HttpStatusCode.NoContent)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                string responseContentStr = await response.Content.ReadAsStringAsync();
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseContentStr);
-                ModelState.AddModelError("Name", error.Message);
-            }
-            return View();
+            await _categoryService.EditAsync(id, categoryDto);
+            return RedirectToAction(nameof(Index));
 
         }
     }
