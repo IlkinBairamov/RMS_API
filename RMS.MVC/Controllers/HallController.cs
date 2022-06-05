@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using RMS.MVC.ViewModels;
 using RMS.MVC.ViewModels.Hall;
+using RMS.Service.DTOs.HallDTO;
+using RMS.Service.Services.Interfaces;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -11,112 +13,58 @@ namespace RMS.MVC.Controllers
 {
     public class HallController : Controller
     {
+        private readonly IHallService _hallService;
+
+        public HallController(IHallService hallService)
+        {
+            _hallService = hallService;
+        }
+
         public async Task<IActionResult> Index()
         {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://localhost:44355/api/halls");
-            var responseJsonStr = await response.Content.ReadAsStringAsync();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                HallIndexVM model = JsonConvert.DeserializeObject<HallIndexVM>(responseJsonStr);
-                return View(model);
-            }
-            else
-            {
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseJsonStr);
-                return Ok(error);
-            }
+            HallGetAllDTO halls = await _hallService.GetAllAsync();
+            return View(halls);
         }
 
         public IActionResult Create()
         {
-
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(HallCreateVM hallVM)
+        public async Task<IActionResult> Create(HallPostDTO hallDto)
         {
-            var jsonStr = JsonConvert.SerializeObject(hallVM);
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync("https://localhost:44355/api/halls", new StringContent(jsonStr, Encoding.UTF8, "application/json"));
-            if (response.StatusCode == HttpStatusCode.Created)
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View();
             }
-            else {
-                string responseContentStr = await response.Content.ReadAsStringAsync();
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseContentStr);
-
-
-               
-                ModelState.AddModelError("Name",error.Message);
-            }
-            return View();
+            await _hallService.CreateAsync(hallDto);
+            return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id==null)
-            {
-                return BadRequest();
-            }
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.DeleteAsync($"https://localhost:44355/api/halls/{id}");
-            if (response.StatusCode == HttpStatusCode.NoContent)
-            {
-                return Json(new { status = 200 });
-            }
-            return View();
+            await _hallService.Delete(id);
+            return Json(new { status = 200 });
         }
 
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Update(int id)
         {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"https://localhost:44355/api/halls/{id}");
-            var responseJsonStr = await response.Content.ReadAsStringAsync();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                HallIndexItemVM model = JsonConvert.DeserializeObject<HallIndexItemVM>(responseJsonStr);
-                return View(model);
-            }
-            else
-            {
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseJsonStr);
-                return Ok(error);
-            }
+            HallPostDTO hallDTO = await _hallService.GetByIdAsync<HallPostDTO>(id);
+            return View(hallDTO);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id,HallCreateVM hallVM)
+        public async Task<IActionResult> Update(int id,HallPostDTO hallDTO)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return View();
             }
-            var jsonStr = JsonConvert.SerializeObject(hallVM);
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PutAsync($"https://localhost:44355/api/halls/{id}", new StringContent(jsonStr, Encoding.UTF8, "application/json"));
-            if (response.StatusCode == HttpStatusCode.NoContent)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                string responseContentStr = await response.Content.ReadAsStringAsync();
-                ErrorResponseVM error = JsonConvert.DeserializeObject<ErrorResponseVM>(responseContentStr);
-                ModelState.AddModelError("Name", error.Message);
-            }
-            return View();
-
+            await _hallService.EditAsync(id, hallDTO);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

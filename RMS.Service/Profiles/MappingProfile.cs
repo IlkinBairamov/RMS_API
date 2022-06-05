@@ -28,7 +28,7 @@ namespace RMS.Service.Profiles
         {
             CreateMap<Hall, HallGetDTO>();
             CreateMap<Hall, HallGetAllDTO>();
-            CreateMap<HallPostDTO, Hall>();
+            CreateMap<HallPostDTO, Hall>().ReverseMap();
 
             CreateMap<Table, TableGetDTO>().ForMember(x=>x.Status,y=>y.MapFrom(x=>x.Status.Status))
                 .ForMember(x=>x.HallName,y=>y.MapFrom(x=>x.Hall.Name));

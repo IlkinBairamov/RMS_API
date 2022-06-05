@@ -46,19 +46,10 @@ namespace RMS.MVC.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.DeleteAsync($"https://localhost:44355/api/categories/{id}");
-            if (response.StatusCode == HttpStatusCode.NoContent)
-            {
-                return Json(new { status = 200 });
-            }
-            return RedirectToAction(nameof(Index));
+            await _categoryService.Delete(id);
+            return Json(new { status = 200 });
         }
 
         public async Task<IActionResult> Update(int id)
