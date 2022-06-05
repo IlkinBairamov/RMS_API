@@ -1,0 +1,125 @@
+﻿@using RMS.Service.DTOs.ReceiptDTO
+@model ReceiptGetDTO
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="body-content">
+    <a asp-action="Index" class="btn btn-labeled btn-inverse mb-2 mr-1">
+        <span class="btn-label"><i class="fas fa-chevron-left"></i></span>Back
+    </a>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            <div class="header p-0 ml-0 mr-0 shadow-none">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="header-pretitle fs-10 font-weight-bold text-muted text-uppercase mb-1">Payments</h6>
+                            <h1 class="header-title fs-25 font-weight-600">Receipt No: @Model.Barcode</h1>
+                        </div>
+                        <div class="col-auto">
+                            <a href="#!" class="btn btn-success ml-2"><i class="typcn typcn-printer mr-1"></i>Print Invoice </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/.End of header-->
+            <div class="card card-body p-5">
+                <div class="row">
+                    <div class="col text-center">
+                        <h4 class="mb-0 font-weight-bold">Receipt from Azalea</h4>
+                        <p class="text-muted mb-5">Code: @Model.Barcode</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6 class="text-uppercase text-muted fs-12 font-weight-600">Invoiced from</h6>
+                        <p class="text-muted mb-4">
+                            <strong class="text-body fs-16">Azalea</strong> <br>
+                            1355 Market Street, Suite 900 <br>
+                            San Francisco, CA 94103 <br>
+                            P: (123) 456-7890
+                        </p>
+                        <h6 class="text-uppercase text-muted fs-12 font-weight-600">Receipt ID</h6>
+                        <p class="mb-4">@Model.Barcode</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-md-right">
+                        <h6 class="text-uppercase text-muted fs-12 font-weight-600">Invoiced to</h6>
+                        <p class="text-muted mb-4">
+                            <strong class="text-body fs-16">Azalea</strong> <br>
+                            1355 Market Street, Suite 900 <br>
+                            San Francisco, CA 94103 <br>
+                            P: (123) 456-7890
+                        </p>
+                        <h6 class="text-uppercase text-muted fs-12 font-weight-600">Date</h6>
+                        <p class="mb-4"><time datetime="2018-04-23">@String.Format("{0:MMM d, yyyy}", Model.Date)</time></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table my-4">
+                                <thead>
+                                    <tr>
+                                        <th class="px-0 bg-transparent border-top-0">
+                                            <span class="h6 font-weight-bold">Description</span>
+                                        </th>
+                                        <th class="px-0 bg-transparent border-top-0">
+                                            <span class="h6 font-weight-bold">Amount</span>
+                                        </th>
+                                        <th class="px-0 bg-transparent border-top-0">
+                                            <span class="h6 font-weight-bold">Price</span>
+                                        </th>
+                                        <th class="px-0 bg-transparent border-top-0 text-right">
+                                            <span class="h6 font-weight-bold">Cost</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Order.Foods)
+                                    {
+                                        <tr>
+                                            <td class="px-0">
+                                                @item.Name
+                                            </td>
+                                            <td class="px-0">
+                                                @item.Count
+                                            </td>
+                                            <td class="px-0">
+                                                @item.Price ₼
+                                            </td>
+                                            <td class="px-0 text-right">
+                                                @{ double priceT = (item.Price) * (item.Count);}
+                                                @priceT ₼
+                                            </td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td class="px-0 border-top border-top-2">
+                                            <strong>Total amount:</strong>
+                                        </td>
+                                        <td colspan="2" class="px-0 text-right border-top border-top-2">
+                                            <span class="fs-16 font-weight-600">
+                                                @Model.Order.TotalPrice ₼
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-0 border-top border-top-2">
+                                            <strong>Staff:</strong>
+                                        </td>
+                                        <td colspan="2" class="px-0 text-right border-top border-top-2">
+                                            <span class="fs-16 font-weight-600">
+                                                @Model.Order.StaffName
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--/.body content-->

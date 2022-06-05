@@ -1,0 +1,62 @@
+﻿@using RMS.Service.DTOs.ReceiptDTO
+
+@model ReceiptGetAllDTO<ReceiptGetDTO>
+@{
+    ViewData["Title"] = "Index";
+}
+<!--Individual column searching (select inputs)-->
+<div class="card mb-4">
+    <div class="card-body"> 
+        <h2 class="mb-3">Receipts</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped column-searching">
+                <thead>
+                    <tr>
+                        <th>Barcode</th>
+                        <th>TableNumber</th>
+                        <th>Date</th>
+                        <th>TotalPrice</th>
+                        <th>Staff</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Receipts)
+                    {
+                        <tr>
+                            <td><a asp-action="Detail" asp-route-id="@item.Id">@item.Barcode</a></td>
+                            <td>@item.Order.TableNumber</td>
+                            <td>@String.Format("{0:d MMM, yyyy}", item.Date)</td>
+                            <td>@item.Order.TotalPrice</td>
+                            <td>@item.Order.StaffName</td>
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Barcode</th>
+                        <th>TableNumber</th>
+                        <th>Date</th>
+                        <th>TotalPrice</th>
+                        <th>Staff</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="~/assets/plugins/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="~/assets/dist/js/popper.min.js"></script>
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="~/assets/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <!-- Third Party Scripts(used by this page)-->
+    <script src="~/assets/plugins/datatables/dataTables.min.js"></script>
+    <script src="~/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!--Page Active Scripts(used by this page)-->
+    <script src="~/assets/plugins/datatables/data-api.active.js"></script>
+    <!--Page Scripts(used by all page)-->
+    <script src="~/assets/dist/js/sidebar.js"></script>
+}

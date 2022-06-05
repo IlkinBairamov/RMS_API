@@ -57,7 +57,7 @@ namespace RMS.Service.Services.Implementations
 
         public async Task<ReceiptGetAllDTO<TEntity>> GetAllAsync<TEntity>()
         {
-            List<Receipt> receipts = await _unitOfWork.ReceiptRepository.GetAllAsync(x => x.IsDeleted == false);
+            List<Receipt> receipts = await _unitOfWork.ReceiptRepository.GetAllAsync(x => x.IsDeleted == false, "Order.Staff","Order.Table", "Order.FoodOrders.Food");
             List<TEntity> receiptGetAllDTO = new List<TEntity>();
             foreach (var item in receipts)
             {
@@ -86,7 +86,7 @@ namespace RMS.Service.Services.Implementations
         }
         public async Task<TEntity> GetByIdAsync<TEntity>(int id)
         {
-            Receipt receipt = await _unitOfWork.ReceiptRepository.GetAsync(x => x.Id == id && x.IsDeleted == false);
+            Receipt receipt = await _unitOfWork.ReceiptRepository.GetAsync(x => x.Id == id && x.IsDeleted == false, "Order.Staff", "Order.Table", "Order.FoodOrders.Food");
             if (receipt == null) throw new NotFoundException("Receipt doesn't exist in this Id");
 
             TEntity entity = _mapper.Map<TEntity>(receipt);
