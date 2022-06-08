@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using RMS.MVC.ViewModels;
-using RMS.MVC.ViewModels.Category;
 using RMS.Service.DTOs.CategoryDTO;
 using RMS.Service.Services.Interfaces;
 using System;

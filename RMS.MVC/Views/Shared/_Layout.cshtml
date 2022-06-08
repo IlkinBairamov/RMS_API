@@ -18,6 +18,7 @@
         <link href="~/assets/plugins/typicons/src/typicons.min.css" rel="stylesheet">
         <link href="~/assets/plugins/themify-icons/themify-icons.min.css" rel="stylesheet">
         <!--Third party Styles(used by this page)--> 
+        <link href="~/assets/plugins/morris/morris.css" rel="stylesheet">
         <link href="~/assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
         <!--Start Your Custom Style Now-->
         <link href="~/assets/dist/css/style.css" rel="stylesheet">
@@ -66,7 +67,17 @@
                     <nav class="sidebar-nav">
                         <ul class="metismenu">
                             <li class="nav-label">Main Menu</li>
-                            <li><a asp-controller="Dashboard" asp-action="Index"><i class="typcn typcn-home-outline mr-2"></i>Dashboard</a></li>
+                            <li>
+                                <a class="has-arrow material-ripple" href="#">
+                                    <i class="typcn typcn-home-outline mr-2"></i>
+                                    Dashboard
+                                </a>
+                                <ul class="nav-second-level">
+                                    <li><a asp-controller="Dashboard" asp-action="Daily">Daily Report</a></li>
+                                    <li><a asp-controller="Dashboard" asp-action="Monthly">Monthly Report</a></li>
+                                    <li><a asp-controller="Dashboard" asp-action="Index">Total Report</a></li>
+                                </ul>
+                            </li>
                             <li><a asp-controller="Hall" asp-action="Index"><i class="typcn typcn-messages mr-2"></i> Halls</a></li>
                             <li><a asp-controller="Table" asp-action="Index"><i class="typcn typcn-messages mr-2"></i> Tables</a></li>
                             <li><a asp-controller="Food" asp-action="Index"><i class="typcn typcn-messages mr-2"></i> Foods</a></li>
@@ -206,18 +217,12 @@
             </div><!--/.wrapper-->
         </div>
         <!--Global script(used by all pages)-->
-        <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="~/assets/plugins/jQuery/jquery-3.4.1.min.js"></script>
+        <script src="~/assets/plugins/jQuery/jquery-3.4.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script src="~/assets/dist/js/popper.min.js"></script>
         <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="~/assets/plugins/metisMenu/metisMenu.min.js"></script>
         <script src="~/assets/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-        <!-- Third Party Scripts(used by this page)-->
-        <script src="~/assets/plugins/chartJs/Chart.min.js"></script>
-        <script src="~/assets/plugins/sparkline/sparkline.min.js"></script>
-        <script src="~/assets/plugins/datatables/dataTables.min.js"></script>
-        <script src="~/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-        <!--Page Active Scripts(used by this page)-->
-        <script src="~/assets/dist/js/pages/dashboard.js"></script>
         <!--Page Scripts(used by all page)-->
         <script src="~/assets/dist/js/sidebar.js"></script>
     </body>

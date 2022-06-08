@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using RMS.MVC.ViewModels;
-using RMS.MVC.ViewModels.Food;
-using RMS.MVC.ViewModels.Hall;
 using RMS.Service.DTOs;
 using RMS.Service.DTOs.CategoryDTO;
 using RMS.Service.DTOs.FoodDTO;

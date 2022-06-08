@@ -1,0 +1,182 @@
+﻿@model TodaysReportVM
+@{
+    ViewData["Title"] = "Monthly";
+}
+<div class="content-header row align-items-center m-0">
+    <div class="col-sm-8 header-title p-0">
+        <div class="media">
+            <div class="media-body">
+                <h1 class="font-weight-bold">Daily Report</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="body-content row ">
+    <div class="col-md-4 col-lg-4">
+        <!--Revenue today indicator--> 
+        <div class="p-2 bg-white rounded p-3 mb-3 shadow-sm">
+            <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-2">
+                Revenue today
+            </div>
+            <div class="badge badge-success fs-26 text-monospace mx-auto mb-2" style="background-color:#0B62A4;">@Model.Revenue</div>
+            <div class="text-muted small mt-1 d-flex justify-content-between">
+                <div>
+                   Average: @String.Format("{0:0.00}", Model.AverageRevenue)  
+                </div>
+                <div>
+                    @{
+                        if (Model.Revenue > Model.AverageRevenue)
+                        {
+                            <span class="text-success">
+                            <i class="fas fa fa-long-arrow-alt-up"></i>
+                            @String.Format("{0:0.0}", ((Model.Revenue - Model.AverageRevenue)/Model.AverageRevenue * 100))% 
+                            </span>
+                        }
+                        else if (Model.Revenue < Model.AverageRevenue)
+                        {
+                            <span class="text-danger">
+                            <i class="fas fa fa-long-arrow-alt-down"></i>
+                            @String.Format("{0:0.0}", ((Model.AverageRevenue - Model.Revenue)/Model.AverageRevenue * 100))% 
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                            @String.Format("{0:0.0}", 0)% 
+                            </span>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <!--Receipts Average Today indicator--> 
+        <div class="p-2 bg-white rounded p-3 mb-3 shadow-sm">
+            <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-2">
+                Receipts Average
+            </div>
+            <div class="badge badge-success fs-26 text-monospace mx-auto mb-2" style="background-color:#0B62A4;">@String.Format("{0:0.0}", Model.Revenue / Model.ReceiptCount)</div>
+            <div class="text-muted small mt-1 d-flex justify-content-between">
+                <div>
+                   Average: @String.Format("{0:0.00}", Model.TotalRevenue / Model.TotalReceiptCount)  
+                </div>
+                <div>
+                    @{
+                        if (Model.Revenue / Model.ReceiptCount >  Model.TotalRevenue / Model.TotalReceiptCount)
+                        {
+                            <span class="text-success">
+                            <i class="fas fa fa-long-arrow-alt-up"></i>
+                            @String.Format("{0:0.0}", ((Model.Revenue / Model.ReceiptCount - Model.TotalRevenue / Model.TotalReceiptCount)/ (Model.TotalRevenue / Model.TotalReceiptCount) * 100))% 
+                            </span>
+                        }
+                        else if (Model.Revenue < Model.AverageRevenue)
+                        {
+                            <span class="text-danger">
+                            <i class="fas fa fa-long-arrow-alt-down"></i>
+                            @String.Format("{0:0.0}", ((Model.TotalRevenue / Model.TotalReceiptCount - Model.Revenue / Model.ReceiptCount)/ (Model.TotalRevenue / Model.TotalReceiptCount) * 100))% 
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                            @String.Format("{0:0.0}", 0)% 
+                            </span>   
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <!--Receipts Count today indicator--> 
+        <div class="p-2 bg-white rounded p-3 mb-3 shadow-sm">
+            <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-2">
+                Receipts Count
+            </div>
+            <div class="badge badge-success fs-26 text-monospace mx-auto mb-2" style="background-color:#0B62A4;">@Model.ReceiptCount</div>
+            <div class="text-muted small mt-1 d-flex justify-content-between">
+                <div>
+                   Average: @String.Format("{0:0}", Model.TotalReceiptCount / Model.Days)  
+                </div>
+                <div>
+                    @{
+                        if (Model.ReceiptCount > Model.TotalReceiptCount / Model.Days)
+                        {
+                            <span class="text-success">
+                            <i class="fas fa fa-long-arrow-alt-up"></i>
+                            @String.Format("{0:0.0}", ((Model.ReceiptCount - Model.TotalReceiptCount / Model.Days)/(Model.TotalReceiptCount / Model.Days) * 100))% 
+                            </span>
+                        }
+                        else if (Model.ReceiptCount < Model.ReceiptCount / Model.Days)
+                        {
+                            <span class="text-danger">
+                            <i class="fas fa fa-long-arrow-alt-down"></i>
+                            @String.Format("{0:0.0}", ((Model.TotalReceiptCount / Model.Days - Model.ReceiptCount)/(Model.TotalReceiptCount / Model.Days) * 100))% 
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                            @String.Format("{0:0.0}", 0)% 
+                            </span>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="fs-17 font-weight-600 mb-0">Best Selling</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="food-amount" style="height: 250px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="fs-17 font-weight-600 mb-0">Most Revenue</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="food-price" style="height: 250px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script type="text/javascript">
+        var yourJavaScriptArray = @Html.Raw(Json.Serialize(Model.Foods));
+        console.log(yourJavaScriptArray);
+        new Morris.Bar({
+          element: 'food-amount',
+
+          data: yourJavaScriptArray,
+
+          xkey: 'name',
+          ykeys: ['amount'],
+          labels: ['Amount']
+        });
+        new Morris.Bar({
+          element: 'food-price',
+          data: yourJavaScriptArray,
+          lineColors: ['red'],
+          xkey: 'name',
+          ykeys: ['price'],
+          labels: ['Revenue']
+        });
+    </script>
+}

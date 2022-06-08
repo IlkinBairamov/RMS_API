@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using RMS.MVC.ViewModels;
-using RMS.MVC.ViewModels.Hall;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.Services.Interfaces;
 using System.Net;

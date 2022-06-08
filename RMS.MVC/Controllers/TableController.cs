@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using RMS.MVC.ViewModels;
-using RMS.MVC.ViewModels.Hall;
-using RMS.MVC.ViewModels.Table;
 using RMS.Service.DTOs.HallDTO;
 using RMS.Service.DTOs.TableDTO;
 using RMS.Service.Exceptions;
