@@ -1,6 +1,7 @@
 ﻿@model TotalReportVM
 @{
     ViewData["Title"] = "Monthly";
+    decimal totalEarnings = Model.TotalRevenue / 1000;
 }
 <div class="content-header row align-items-center m-0">
     <div class="col-sm-8 header-title p-0">
@@ -40,6 +41,54 @@
         </div>
     </div>
     <div class="col-lg-12 col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="header-body mb-4 pt-0">
+                    <div class="row align-items-end">
+                        <div class="col">
+                            <!-- Pretitle -->
+                            <h6 class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-1">
+                                Overview
+                            </h6>
+                            <!-- Title -->
+                            <h1 class="header-title fs-21 font-weight-bold">
+                                Performance
+                            </h1>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Nav -->
+                            <ul class="nav nav-tabs header-tabs">
+                                <li class="nav-item">
+                                    <a href="#" id="0" class="nav-link text-center active" data-toggle="tab">
+                                        <h6 class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-1">
+                                            Earnings
+                                        </h6>
+                                        <h3 class="mb-0 fs-16 font-weight-bold">
+                                            @String.Format("{0:0.0}", totalEarnings)k ₼
+                                        </h3>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" id="1" class="nav-link text-center" data-toggle="tab">
+                                        <h6 class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-1">
+                                            Receipts
+                                        </h6>
+                                        <h3 class="mb-0 fs-16 font-weight-bold">
+                                            @Model.TotalReceiptCount
+                                        </h3>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> <!-- / .row -->
+                </div> <!-- / .header-body -->
+                <div class="chart">
+                    <canvas id="forecast" width="300" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
         <div class="card mb-3">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
@@ -53,7 +102,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12 col-md-12">
+    <div class="col-lg-6 col-md-6">
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
@@ -71,6 +120,7 @@
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="assets/plugins/chartJs/Chart.min.js"></script>
     <script type="text/javascript">
         var yourJavaScriptArray = @Html.Raw(Json.Serialize(Model.Foods));
         console.log(yourJavaScriptArray);
@@ -90,6 +140,82 @@
           xkey: 'name',
           ykeys: ['price'],
           labels: ['Revenue']
+        });
+
+        //Line Chart
+
+        var chart_labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var temp_dataset = @Html.Raw(Json.Serialize(Model.revenuePerMonth));
+        var rain_dataset = @Html.Raw(Json.Serialize(Model.revenuePerMonth));
+        var ctx = document.getElementById("forecast").getContext('2d');
+        var config = {
+            type: 'bar',
+            data: {
+                labels: chart_labels,
+                datasets: [{
+                        type: 'line',
+                        label: "Earnings",
+                        borderColor: "#0B62A4",
+                        fill: false,
+                        data: temp_dataset
+                    }, {
+                        type: 'bar',
+                        label: "Earnings",
+                        backgroundColor: "rgba(55, 160, 0, .1)",
+                        borderColor: "rgba(55, 160, 0, .4)",
+                        data: rain_dataset
+                    }]
+            },
+            options: {
+                legend: false,
+                scales: {
+                    yAxes: [{
+                            gridLines: {
+                                color: "#e6e6e6",
+                                zeroLineColor: "#e6e6e6",
+                                borderDash: [2],
+                                borderDashOffset: [2],
+                                drawBorder: false,
+                                drawTicks: false
+                            },
+                            ticks: {
+                                padding: 20
+                            }
+                        }],
+
+                    xAxes: [{
+                            maxBarThickness: 50,
+                            gridLines: {
+                                lineWidth: [0]
+                            },
+                            ticks: {
+                                padding: 20,
+                                fontSize: 14,
+                                fontFamily: "'Nunito Sans', sans-serif"
+                            }
+                        }]
+                }
+            }
+        };
+        var forecast_chart = new Chart(ctx, config);
+        $("#0").on("click", function () {
+            var data = forecast_chart.config.data;
+            data.datasets[0].data = temp_dataset;
+            data.datasets[1].data = rain_dataset;
+            data.labels = chart_labels;
+            forecast_chart.update();
+        });
+        $("#1").on("click", function () {
+            var chart_labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var temp_dataset = @Html.Raw(Json.Serialize(Model.receiptPerMonth));
+            var rain_dataset = @Html.Raw(Json.Serialize(Model.receiptPerMonth));
+            var data = forecast_chart.config.data;
+            data.datasets[0].data = temp_dataset;
+            data.datasets[1].data = rain_dataset;
+            data.datasets[0].label = "Receipts";
+            data.datasets[1].label = "Receipts";
+            data.labels = chart_labels;
+            forecast_chart.update();
         });
     </script>
 }

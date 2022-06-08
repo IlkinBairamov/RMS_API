@@ -7,5 +7,7 @@ namespace RMS.MVC.ViewModels
         public decimal TotalRevenue { get; set; }
         public decimal TotalReceiptCount { get; set; }
         public FoodReportDTO[] Foods { get; set; }
+        public decimal[] revenuePerMonth { get; set; }
+        public decimal[] receiptPerMonth { get; set; }
     }
 }

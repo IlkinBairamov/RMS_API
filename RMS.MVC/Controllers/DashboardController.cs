@@ -21,6 +21,8 @@ namespace RMS.MVC.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            decimal[] revenuePerMonth = new decimal[12];
+            decimal[] receiptPerMonth = new decimal[12];
             decimal TotalRevenue = 0;
 
             TotalReportVM ReportVM = new TotalReportVM();
@@ -32,10 +34,14 @@ namespace RMS.MVC.Controllers
             foreach (var item in receipts.Receipts)
             {
                 TotalRevenue += item.TotalPrice;
+                revenuePerMonth[item.Date.Month - 1] += item.TotalPrice;
+                receiptPerMonth[item.Date.Month - 1]++; ;
             }
             ReportVM.TotalRevenue = TotalRevenue;
             ReportVM.TotalReceiptCount = receipts.Count;
             ReportVM.Foods = foods;
+            ReportVM.revenuePerMonth = revenuePerMonth;
+            ReportVM.receiptPerMonth = receiptPerMonth;
             return View(ReportVM);
         }
         public async Task<IActionResult> Daily()
@@ -89,6 +95,8 @@ namespace RMS.MVC.Controllers
             decimal MonthlyRevenue = 0;
             decimal TotalRevenue = 0;
             decimal MonthlyReceiptCount = 0;
+            decimal[] revenuePerDay = new decimal[31];
+            decimal[] receiptPerDay = new decimal[31];
 
             List<int> datesList = new List<int>();
 
@@ -118,6 +126,8 @@ namespace RMS.MVC.Controllers
                 {
                     MonthlyReceiptCount++;
                     MonthlyRevenue += receipts.Receipts[i].TotalPrice;
+                    revenuePerDay[receipts.Receipts[i].Date.Day - 1] += receipts.Receipts[i].TotalPrice;
+                    receiptPerDay[receipts.Receipts[i].Date.Day - 1]++; ;
                 }
             }
             var AverageRevenue = TotalRevenue / datesList.Count;
@@ -128,6 +138,8 @@ namespace RMS.MVC.Controllers
             todaysReportVM.TotalReceiptCount = receipts.Count;
             todaysReportVM.Days = datesList.Count;
             todaysReportVM.Foods = foods;
+            todaysReportVM.receiptPerDay = receiptPerDay;
+            todaysReportVM.revenuePerDay = revenuePerDay;
             return View(todaysReportVM);
         }
     }

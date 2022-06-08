@@ -13,5 +13,7 @@ namespace RMS.MVC.ViewModels
         public decimal TotalReceiptCount { get; set; }
         public decimal Days { get; set; }
         public FoodReportDTO[] Foods { get; set; }
+        public decimal[] revenuePerDay { get; set; }
+        public decimal[] receiptPerDay{ get; set; }
     }
 }
